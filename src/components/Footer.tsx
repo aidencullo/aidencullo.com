@@ -52,7 +52,7 @@ const Footer = () => {
       </div>
       <div className="footer-bottom">
         <p>
-          <InternalLink href="#" title="Blog" className="header-me-link">Blog</InternalLink> &nbsp; <InternalLink href="#" title="Facebook" className="header-me-link">Facebook</InternalLink> &nbsp; <InternalLink href="#" title="Twitter" className="header-me-link">Twitter</InternalLink> &nbsp; <InternalLink href="#" title="LinkedIn" className="header-me-link">LinkedIn</InternalLink> &nbsp; <InternalLink href="#" title="Instagram" className="header-me-link">Instagram</InternalLink>
+          <InternalLink href="https://github.com/aidencullo" title="GitHub" className="header-me-link">GitHub</InternalLink> &nbsp; <InternalLink href="https://stackoverflow.com/users/6447634/aiden-cullo" title="Stack Overflow" className="header-me-link">Stack Overflow</InternalLink> &nbsp; <InternalLink href="https://www.linkedin.com/in/aidencullo" title="LinkedIn" className="header-me-link">LinkedIn</InternalLink> &nbsp; <InternalLink href="mailto:aidencullo@gmail.com" title="Email" className="header-me-link">Email</InternalLink> &nbsp; <InternalLink href="/resume.pdf" title="Resume" className="header-me-link">Resume</InternalLink>
         </p>
         <p>
           © 2025 Aiden Cullo. All rights reserved. This site is hosted on GitHub Pages with a Namecheap domain.
