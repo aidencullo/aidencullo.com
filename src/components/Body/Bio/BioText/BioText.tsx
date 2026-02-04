@@ -3,9 +3,9 @@ import { useLanguage } from '@hooks/useLanguage'
 import './BioText.css'
 
 const BioText: React.FC = () => {
-  const englishBioText = "Hello! My name is Aiden. I'm a software engineer based out of New York City. I'm a full stack engineer at JP Morgan where I'm developing a firm-wide LLM tracking system."
-  const spanishBioText = "¡Hola! Mi nombre es Aiden. Soy un ingeniero de software basado en la ciudad de Nueva York. Soy un ingeniero full stack en JP Morgan donde estoy desarrollando un sistema de seguimiento de LLM para toda la empresa."
-  const frenchBioText = "Bonjour ! Je m'appelle Aiden. Je suis un ingénieur logiciel basé à New York. Je suis un ingénieur full stack chez JP Morgan où je développe un système de suivi LLM à l'échelle de l'entreprise."
+  const englishBioText = "Hola :) My name is Aiden. I'm a software engineer based out of Brooklyn! Currently, I'm building a clean water analysis platform at Tech to the Rescue. Previously, I built a LLM system-of-record at JPMC."
+  const spanishBioText = "Hola :) Me llamo Aiden. Soy ingeniero de software en Brooklyn. Actualmente, estoy construyendo una plataforma de análisis de agua potable en Tech to the Rescue. Anteriormente, construí un sistema de registro de LLM en JPMC."
+  const frenchBioText = "Hola :) Je m'appelle Aiden. Je suis ingénieur logiciel basé à Brooklyn. Actuellement, je développe une plateforme d'analyse de l'eau potable chez Tech to the Rescue. Auparavant, j'ai construit un système de registre LLM chez JPMC."
   const { language } = useLanguage()
 
   const getBioText = () => {
