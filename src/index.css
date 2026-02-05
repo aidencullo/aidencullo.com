@@ -1,13 +1,13 @@
 :root {
-  --primary: #3e2509;
-  --secondary: white;
+  --primary: #1a365d;
+  --secondary: #f7fafc;
   --text-primary: var(--secondary);
   --text-secondary: var(--primary);
 }
 
 :root[data-theme="dark"] {
-  --primary: white;
-  --secondary: #3e2509;
+  --primary: #f7fafc;
+  --secondary: #1a365d;
 }
 
 html {
