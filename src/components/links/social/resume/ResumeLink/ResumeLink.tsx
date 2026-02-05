@@ -6,7 +6,7 @@ interface ResumeLinkProps {
 }
 
 const ResumeLink: React.FC<ResumeLinkProps> = ({ children }) => {
-  const url = "/resume.pdf"
+  const url = "https://aidencullo.github.io/resume/resume.pdf"
   const title = "Resume"
   
   return (
