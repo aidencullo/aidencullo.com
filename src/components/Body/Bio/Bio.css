@@ -1,18 +1,13 @@
 .bio-container {
   text-align: center;
-  position: absolute;
-  top: 120vh;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 100%;
   max-width: 800px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  scroll-margin-top: 100px;
-  opacity: 0;
-  transition: opacity 0.8s ease-out;
+  margin: 0 auto;
+  opacity: 1;
   font-size: 1rem;
 }
 
