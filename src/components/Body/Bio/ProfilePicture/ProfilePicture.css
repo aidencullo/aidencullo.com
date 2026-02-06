@@ -3,7 +3,6 @@
   height: 12.5rem;
   border-radius: 50%;
   overflow: hidden;
-  border: 0.25rem solid var(--primary);
 }
 
 .profile-picture img {
