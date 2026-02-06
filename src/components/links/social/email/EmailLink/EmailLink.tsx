@@ -7,7 +7,7 @@ interface EmailLinkProps {
 }
 
 const EmailLink: React.FC<EmailLinkProps> = ({ children, className }) => {
-  const email = "aidencullo@gmail.com"
+  const email = "barrymccockner@duck.com"
   const title = "Email"
   const url = `mailto:${email}`
   
