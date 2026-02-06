@@ -11,6 +11,14 @@
   font-size: 1rem;
 }
 
+.bio-divider {
+  width: 60%;
+  max-width: 320px;
+  border: 0;
+  border-top: 1px solid var(--primary);
+  opacity: 0.2;
+}
+
 .bio-container.fade-in {
   opacity: 1;
 }
