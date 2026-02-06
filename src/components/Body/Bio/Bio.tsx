@@ -8,9 +8,7 @@ const Bio: React.FC = () => {
   return (
     <div className="bio-container" id="bio">
       <ProfilePicture />
-      <hr className="bio-divider" />
       <BioText />
-      <hr className="bio-divider" />
       <BioLinks />
     </div>
   )

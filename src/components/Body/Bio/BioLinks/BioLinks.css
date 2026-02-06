@@ -9,9 +9,10 @@
 
 .link-icon {
   font-size: 3rem;
+  transition: transform 280ms ease, opacity 280ms ease;
 }
 
 .bio-links a:hover {
-  scale: 1.1;
+  transform: scale(1.08);
   opacity: 1;
 }
