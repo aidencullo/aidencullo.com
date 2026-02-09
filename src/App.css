@@ -1,6 +1,6 @@
 .app {
   color: var(--text-secondary);
-  background-color: var(--secondary);
+  background: var(--app-bg);
   display: flex;
   flex-direction: column;
   justify-content: center;

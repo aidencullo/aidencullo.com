@@ -3,11 +3,13 @@
   --secondary: #f7fafc;
   --text-primary: var(--secondary);
   --text-secondary: var(--primary);
+  --app-bg: linear-gradient(135deg, #f7fafc 0%, #edf2f7 55%, #e2e8f0 100%);
 }
 
 :root[data-theme="dark"] {
   --primary: #f7fafc;
   --secondary: #1a365d;
+  --app-bg: linear-gradient(135deg, #0b1426 0%, #142744 55%, #1a365d 100%);
 }
 
 html {
