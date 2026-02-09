@@ -5,7 +5,7 @@ const BioText: React.FC = () => {
   return (
     <div className="bio-text">
       <p>
-        Brooklyn-based dev building a clean water supply analytics dashboard.
+        Brooklyn-based dev building a water supply analytics dashboard.
       </p>
     </div>
   )
