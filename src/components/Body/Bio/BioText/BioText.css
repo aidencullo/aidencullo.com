@@ -1,5 +1,22 @@
 .bio-text {
   font-size: 1.2rem;
-  max-width: 37.5rem;
+  width: 100%;
+  overflow: hidden;
   padding: 0 3rem;
+}
+
+.bio-text p {
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 100%;
+  animation: bio-marquee 25s linear infinite;
+}
+
+@keyframes bio-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
