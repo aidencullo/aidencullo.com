@@ -14,3 +14,9 @@
 .bio-container.fade-in {
   opacity: 1;
 }
+
+.bio-welcome {
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
