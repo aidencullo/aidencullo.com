@@ -9,7 +9,15 @@
   display: inline-block;
   white-space: nowrap;
   padding-left: 100%;
-  animation: bio-marquee 25s linear infinite;
+  font-family: "Press Start 2P", "Courier New", monospace;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  color: #2ee6ff;
+  text-shadow:
+    0 0 6px rgba(46, 230, 255, 0.8),
+    0 0 12px rgba(46, 230, 255, 0.5),
+    0 0 24px rgba(46, 230, 255, 0.35);
+  animation: bio-marquee 25s linear infinite, bio-flicker 3.5s steps(1) infinite;
 }
 
 @keyframes bio-marquee {
@@ -18,5 +26,23 @@
   }
   100% {
     transform: translateX(-100%);
+  }
+}
+
+@keyframes bio-flicker {
+  0%, 100% {
+    opacity: 1;
+  }
+  55% {
+    opacity: 0.95;
+  }
+  60% {
+    opacity: 0.85;
+  }
+  65% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.92;
   }
 }
