@@ -6,7 +6,8 @@
     <title>Loading...</title>
     <script>
       // run before React loads
-      const theme = localStorage.getItem("theme") || "light";
+      const hour = new Date().getHours();
+      const theme = hour >= 6 && hour < 18 ? "light" : "dark";
       document.documentElement.setAttribute("data-theme", theme);
     </script>
   </head>
