@@ -16,11 +16,35 @@
 }
 
 .bio-welcome {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
   font-size: 1rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   opacity: 0;
   animation: bio-welcome-fade 900ms ease-out forwards;
+}
+
+.bio-welcome-text {
+  grid-area: 1 / 1;
+  transition: opacity 520ms ease-in-out;
+}
+
+.bio-welcome-original {
+  opacity: 1;
+}
+
+.bio-welcome-english {
+  opacity: 0;
+}
+
+.bio-welcome.is-hovering .bio-welcome-original {
+  opacity: 0;
+}
+
+.bio-welcome.is-hovering .bio-welcome-english {
+  opacity: 1;
 }
 
 @keyframes bio-welcome-fade {

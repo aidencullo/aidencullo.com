@@ -119,11 +119,12 @@ const Bio: React.FC = () => {
   return (
     <div className="bio-container" id="bio">
       <div
-        className="bio-welcome"
+        className={`bio-welcome ${isHoveringWelcome ? 'is-hovering' : ''}`}
         onMouseEnter={() => setIsHoveringWelcome(true)}
         onMouseLeave={() => setIsHoveringWelcome(false)}
       >
-        {isHoveringWelcome ? 'Welcome' : welcome}
+        <span className="bio-welcome-text bio-welcome-original">{welcome}</span>
+        <span className="bio-welcome-text bio-welcome-english">Welcome</span>
       </div>
       <ProfilePicture />
       <BioText />
