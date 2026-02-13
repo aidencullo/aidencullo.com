@@ -11,12 +11,6 @@
   transform: scale(1.1);
 }
 
-.profile-picture-link {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
 .profile-picture img {
   width: 100%;
   height: 100%;

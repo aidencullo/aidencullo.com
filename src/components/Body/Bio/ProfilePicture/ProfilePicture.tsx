@@ -1,5 +1,4 @@
 import React from 'react'
-import LinkedInLink from '@links/social/linkedin/LinkedInLink/LinkedInLink'
 import './ProfilePicture.css'
 
 const ProfilePicture: React.FC = () => {
@@ -8,9 +7,7 @@ const ProfilePicture: React.FC = () => {
   
   return (
     <div className="profile-picture">
-      <LinkedInLink className="profile-picture-link">
-        <img src={imagePath} alt={altText} />
-      </LinkedInLink>
+      <img src={imagePath} alt={altText} />
     </div>
   )
 }
