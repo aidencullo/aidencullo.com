@@ -21,7 +21,44 @@
 }
 
 .bio-links a:hover {
-  transform: scale(0.82);
   color: inherit;
   opacity: 1;
+}
+
+.bio-links a:nth-child(1):hover {
+  transform: scale(0.8);
+}
+
+.bio-links a:nth-child(2):hover {
+  transform: scale(1.22);
+}
+
+.bio-links a:nth-child(3):hover {
+  transform: rotate(360deg);
+}
+
+.bio-links a:nth-child(4):hover {
+  animation: icon-jiggle 520ms ease-in-out infinite;
+}
+
+.bio-links a:nth-child(5):hover {
+  transform: translateY(-0.3rem) rotate(-8deg);
+}
+
+@keyframes icon-jiggle {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(7deg);
+  }
+  50% {
+    transform: rotate(-7deg);
+  }
+  75% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
