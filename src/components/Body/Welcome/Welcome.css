@@ -18,12 +18,12 @@
 
 .name {
   font-size: clamp(5rem, 12vw, 8.5rem);
-  font-family: "Press Start 2P", "Courier New", monospace;
-  font-weight: 400;
+  font-family: "Sora", "Avenir Next", "Segoe UI", sans-serif;
+  font-weight: 200;
   margin: 0;
   padding: 0;
   text-align: center;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   margin-bottom: 0.5rem;
   opacity: 0;
   animation: welcome-name-fade 900ms ease-out 200ms forwards;
