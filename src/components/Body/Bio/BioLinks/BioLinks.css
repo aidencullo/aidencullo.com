@@ -9,18 +9,11 @@
 }
 
 .bio-links a {
-  opacity: 0;
-  transform: scale(0.92);
-  pointer-events: none;
-  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 400ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.bio-container:hover .bio-links a,
-.bio-container:focus-within .bio-links a {
   opacity: 1;
   transform: scale(1);
   pointer-events: auto;
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 400ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .link-icon {
