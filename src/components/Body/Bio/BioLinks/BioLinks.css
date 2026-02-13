@@ -21,6 +21,7 @@
 }
 
 .bio-links a:hover {
-  transform: scale(1.08);
+  transform: rotate(360deg);
+  color: inherit;
   opacity: 1;
 }
