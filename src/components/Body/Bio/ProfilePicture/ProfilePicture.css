@@ -3,6 +3,12 @@
   height: 12.5rem;
   border-radius: 50%;
   overflow: hidden;
+  transition: transform 220ms ease;
+}
+
+.profile-picture:hover,
+.profile-picture:focus-within {
+  transform: scale(1.1);
 }
 
 .profile-picture-link {
@@ -15,10 +21,4 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 220ms ease;
-}
-
-.profile-picture-link:hover img,
-.profile-picture-link:focus-visible img {
-  transform: scale(1.1);
 }
