@@ -5,6 +5,7 @@
 :root {
   --primary: #1a365d;
   --secondary: #f7fafc;
+  --link-hover: #2b6cb0;
   --text-primary: var(--secondary);
   --text-secondary: var(--primary);
   --app-bg: linear-gradient(135deg, #f7fafc 0%, #edf2f7 55%, #e2e8f0 100%);
@@ -15,6 +16,7 @@
 :root[data-theme="dark"] {
   --primary: #f7fafc;
   --secondary: #1a365d;
+  --link-hover: #90cdf4;
   --app-bg: linear-gradient(135deg, #0b1426 0%, #142744 55%, #1a365d 100%);
 }
 
@@ -43,6 +45,7 @@ a {
 }
 
 a:hover {
+  color: var(--link-hover);
   opacity: 0.8;
 }
 
