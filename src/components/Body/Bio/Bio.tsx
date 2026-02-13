@@ -109,6 +109,7 @@ const Bio: React.FC = () => {
   ]
 
   const [welcome, setWelcome] = useState('Welcome')
+  const [isHoveringWelcome, setIsHoveringWelcome] = useState(false)
 
   useEffect(() => {
     const next = welcomes[Math.floor(Math.random() * welcomes.length)]
@@ -117,7 +118,13 @@ const Bio: React.FC = () => {
 
   return (
     <div className="bio-container" id="bio">
-      <div className="bio-welcome">{welcome}</div>
+      <div
+        className="bio-welcome"
+        onMouseEnter={() => setIsHoveringWelcome(true)}
+        onMouseLeave={() => setIsHoveringWelcome(false)}
+      >
+        {isHoveringWelcome ? 'Welcome' : welcome}
+      </div>
       <ProfilePicture />
       <BioText />
       <BioLinks />
