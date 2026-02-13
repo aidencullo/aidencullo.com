@@ -6,9 +6,7 @@
 }
 
 .bio-text p {
-  display: inline-block;
-  white-space: nowrap;
-  padding-left: 100%;
+  display: block;
   font-family: "Press Start 2P", "Courier New", monospace;
   font-size: 1rem;
   letter-spacing: 0.08em;
@@ -17,16 +15,7 @@
     0 0 6px rgba(46, 230, 255, 0.8),
     0 0 12px rgba(46, 230, 255, 0.5),
     0 0 24px rgba(46, 230, 255, 0.35);
-  animation: bio-marquee 25s linear infinite, bio-flicker 3.5s steps(1) infinite;
-}
-
-@keyframes bio-marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
+  animation: bio-flicker 3.5s steps(1) infinite;
 }
 
 @keyframes bio-flicker {
