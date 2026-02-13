@@ -2,6 +2,7 @@
   color: var(--text-secondary);
   background-color: var(--secondary);
   background-image: var(--app-bg);
+  background-size: 140% 140%;
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -14,6 +15,7 @@
   width: 100%;
   margin: 0;
   padding: 0;
+  animation: bg-base-shift 30s ease-in-out infinite alternate;
 }
 
 .app::before,
@@ -29,23 +31,30 @@
   background-image:
     repeating-linear-gradient(
       60deg,
-      transparent 0 2.7rem,
-      rgba(130, 130, 130, 0.06) 2.7rem 2.8rem
+      transparent 0 2.4rem,
+      rgba(130, 130, 130, 0.09) 2.4rem 2.55rem
     ),
     repeating-linear-gradient(
       -60deg,
-      transparent 0 2.7rem,
-      rgba(130, 130, 130, 0.05) 2.7rem 2.8rem
+      transparent 0 2.4rem,
+      rgba(120, 120, 120, 0.08) 2.4rem 2.55rem
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 4.8rem,
+      rgba(145, 145, 145, 0.07) 4.8rem 4.92rem
     );
-  animation: bg-grid-drift 55s linear infinite;
+  background-size: 17rem 17rem, 17rem 17rem, 28rem 28rem;
+  animation: bg-grid-drift 26s linear infinite;
 }
 
 .app::after {
   background-image:
-    radial-gradient(circle at 20% 25%, rgba(120, 120, 120, 0.1), transparent 38%),
-    radial-gradient(circle at 75% 70%, rgba(140, 140, 140, 0.08), transparent 40%),
-    radial-gradient(circle at 85% 20%, rgba(110, 110, 110, 0.06), transparent 35%);
-  animation: bg-orb-drift 90s linear infinite;
+    radial-gradient(circle at 20% 25%, rgba(120, 120, 120, 0.13), transparent 42%),
+    radial-gradient(circle at 75% 70%, rgba(140, 140, 140, 0.1), transparent 44%),
+    radial-gradient(circle at 85% 20%, rgba(110, 110, 110, 0.08), transparent 38%),
+    linear-gradient(130deg, transparent 20%, rgba(125, 125, 125, 0.06) 45%, transparent 65%);
+  animation: bg-orb-drift 35s ease-in-out infinite alternate, bg-fade-pulse 8s ease-in-out infinite;
 }
 
 .app > * {
@@ -55,19 +64,39 @@
 
 @keyframes bg-grid-drift {
   from {
-    transform: translate3d(0, 0, 0) rotate(0deg);
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    background-position: 0 0, 0 0, 0 0;
   }
   to {
-    transform: translate3d(-6rem, -4rem, 0) rotate(3deg);
+    transform: translate3d(-8rem, -6rem, 0) rotate(4deg) scale(1.06);
+    background-position: -10rem -12rem, 9rem -8rem, 0 -18rem;
   }
 }
 
 @keyframes bg-orb-drift {
   from {
-    transform: translate3d(0, 0, 0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
   }
   to {
-    transform: translate3d(3rem, -3rem, 0) scale(1.05);
+    transform: translate3d(5rem, -4rem, 0) scale(1.08) rotate(-3deg);
+  }
+}
+
+@keyframes bg-fade-pulse {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes bg-base-shift {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
   }
 }
 
