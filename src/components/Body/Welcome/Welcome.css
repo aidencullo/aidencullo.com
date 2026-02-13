@@ -25,4 +25,15 @@
   text-align: center;
   letter-spacing: 0.02em;
   margin-bottom: 0.5rem;
+  opacity: 0;
+  animation: welcome-name-fade 900ms ease-out 200ms forwards;
+}
+
+@keyframes welcome-name-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
