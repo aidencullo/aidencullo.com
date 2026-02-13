@@ -31,21 +31,26 @@
   background-image:
     repeating-linear-gradient(
       60deg,
-      transparent 0 2.4rem,
-      rgba(130, 130, 130, 0.09) 2.4rem 2.55rem
+      transparent 0 2.25rem,
+      rgba(130, 130, 130, 0.1) 2.25rem 2.4rem
+    ),
+    repeating-linear-gradient(
+      60deg,
+      transparent 1.2rem 3.45rem,
+      rgba(112, 112, 112, 0.08) 3.45rem 3.6rem
     ),
     repeating-linear-gradient(
       -60deg,
-      transparent 0 2.4rem,
-      rgba(120, 120, 120, 0.08) 2.4rem 2.55rem
+      transparent 0 2.25rem,
+      rgba(120, 120, 120, 0.1) 2.25rem 2.4rem
     ),
     repeating-linear-gradient(
-      0deg,
-      transparent 0 4.8rem,
-      rgba(145, 145, 145, 0.07) 4.8rem 4.92rem
+      -60deg,
+      transparent 1.2rem 3.45rem,
+      rgba(105, 105, 105, 0.08) 3.45rem 3.6rem
     );
-  background-size: 17rem 17rem, 17rem 17rem, 28rem 28rem;
-  animation: bg-grid-drift 26s linear infinite;
+  background-size: 16rem 16rem, 16rem 16rem, 16rem 16rem, 16rem 16rem;
+  animation: bg-grid-drift 14s ease-in-out infinite;
 }
 
 .app::after {
@@ -63,13 +68,20 @@
 }
 
 @keyframes bg-grid-drift {
-  from {
+  0% {
     transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
-    background-position: 0 0, 0 0, 0 0;
+    background-size: 16rem 16rem, 16rem 16rem, 16rem 16rem, 16rem 16rem;
+    background-position: 0 0, 0 0, 0 0, 0 0;
   }
-  to {
-    transform: translate3d(-8rem, -6rem, 0) rotate(4deg) scale(1.06);
-    background-position: -10rem -12rem, 9rem -8rem, 0 -18rem;
+  50% {
+    transform: translate3d(-2rem, -1.5rem, 0) rotate(1.5deg) scale(1.02);
+    background-size: 13.2rem 13.2rem, 13.2rem 13.2rem, 13.2rem 13.2rem, 13.2rem 13.2rem;
+    background-position: -6rem -7rem, 6rem 7rem, 7rem -6rem, -7rem 6rem;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    background-size: 18.8rem 18.8rem, 18.8rem 18.8rem, 18.8rem 18.8rem, 18.8rem 18.8rem;
+    background-position: 8rem 9rem, -8rem -9rem, -9rem 8rem, 9rem -8rem;
   }
 }
 
