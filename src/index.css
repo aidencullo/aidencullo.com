@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&display=swap');
 
 :root {
   --primary: #1a365d;
@@ -7,6 +8,8 @@
   --text-primary: var(--secondary);
   --text-secondary: var(--primary);
   --app-bg: linear-gradient(135deg, #f7fafc 0%, #edf2f7 55%, #e2e8f0 100%);
+  --font-body: "Nunito", "Avenir Next", "Segoe UI", sans-serif;
+  --font-display: "Quicksand", "Nunito", "Avenir Next", "Segoe UI", sans-serif;
 }
 
 :root[data-theme="dark"] {
@@ -17,7 +20,7 @@
 
 html {
   font-size: 16px;
-  font-family: "Iowan Old Style", "Palatino", "Times New Roman", serif;
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
