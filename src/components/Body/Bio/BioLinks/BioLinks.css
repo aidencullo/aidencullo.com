@@ -34,7 +34,7 @@
 }
 
 .bio-links a:nth-child(3):hover {
-  transform: rotate(360deg);
+  animation: icon-spin 700ms linear infinite;
 }
 
 .bio-links a:nth-child(4):hover {
@@ -60,5 +60,14 @@
   }
   100% {
     transform: rotate(0deg);
+  }
+}
+
+@keyframes icon-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
