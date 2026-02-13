@@ -5,8 +5,20 @@
   overflow: hidden;
 }
 
+.profile-picture-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .profile-picture img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 220ms ease;
+}
+
+.profile-picture-link:hover img,
+.profile-picture-link:focus-visible img {
+  transform: scale(1.1);
 }
