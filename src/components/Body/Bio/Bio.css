@@ -47,8 +47,34 @@
   opacity: 1;
 }
 
+.bio-welcome-language {
+  margin: -1rem 0 0.5rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  opacity: 0.8;
+  text-transform: uppercase;
+}
+
 @keyframes bio-welcome-fade {
   to {
     opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .bio-container {
+    gap: 1.25rem;
+    padding: 0 0.75rem;
+    box-sizing: border-box;
+  }
+
+  .bio-welcome {
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+  }
+
+  .bio-welcome-language {
+    margin-top: -0.65rem;
+    font-size: 0.68rem;
   }
 }

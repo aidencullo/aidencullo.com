@@ -71,3 +71,15 @@
     transform: rotate(360deg);
   }
 }
+
+@media (max-width: 768px) {
+  .bio-links {
+    gap: 1rem;
+    padding: 0 0.5rem;
+    min-height: 2.5rem;
+  }
+
+  .link-icon {
+    font-size: 2.25rem;
+  }
+}

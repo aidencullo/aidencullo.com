@@ -13,3 +13,14 @@
   text-shadow: none;
   animation: none;
 }
+
+@media (max-width: 768px) {
+  .bio-text {
+    padding: 0 1rem;
+  }
+
+  .bio-text p {
+    font-size: 0.92rem;
+    line-height: 1.45;
+  }
+}

@@ -22,6 +22,8 @@ const Link: React.FC<LinkProps> = ({
       href={href} 
       title={title}
       className={`link ${className || ''}`}
+      target={isExternal ? '_blank' : undefined}
+      rel={isExternal ? 'noopener noreferrer' : undefined}
       download={download}
     >
       {children}

@@ -37,3 +37,16 @@
     opacity: 1;
   }
 }
+
+@media (max-width: 768px) {
+  .welcome-container {
+    top: calc(50vh - 90px);
+  }
+
+  .name {
+    font-size: clamp(3rem, 16vw, 5rem);
+    letter-spacing: 0;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+  }
+}
