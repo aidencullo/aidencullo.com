@@ -2,8 +2,9 @@
   color: var(--text-secondary);
   background-color: var(--secondary);
   background-image: var(--app-bg);
-  background-size: 220% 220%;
-  animation: bg-gradient-shift 24s ease-in-out infinite;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,20 +16,64 @@
   padding: 0;
 }
 
-@keyframes bg-gradient-shift {
-  0% {
-    background-position: 0% 50%;
+.app::before,
+.app::after {
+  content: '';
+  position: absolute;
+  inset: -30%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.app::before {
+  background-image:
+    repeating-linear-gradient(
+      60deg,
+      transparent 0 2.7rem,
+      rgba(130, 130, 130, 0.06) 2.7rem 2.8rem
+    ),
+    repeating-linear-gradient(
+      -60deg,
+      transparent 0 2.7rem,
+      rgba(130, 130, 130, 0.05) 2.7rem 2.8rem
+    );
+  animation: bg-grid-drift 55s linear infinite;
+}
+
+.app::after {
+  background-image:
+    radial-gradient(circle at 20% 25%, rgba(120, 120, 120, 0.1), transparent 38%),
+    radial-gradient(circle at 75% 70%, rgba(140, 140, 140, 0.08), transparent 40%),
+    radial-gradient(circle at 85% 20%, rgba(110, 110, 110, 0.06), transparent 35%);
+  animation: bg-orb-drift 90s linear infinite;
+}
+
+.app > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes bg-grid-drift {
+  from {
+    transform: translate3d(0, 0, 0) rotate(0deg);
   }
-  50% {
-    background-position: 100% 50%;
+  to {
+    transform: translate3d(-6rem, -4rem, 0) rotate(3deg);
   }
-  100% {
-    background-position: 0% 50%;
+}
+
+@keyframes bg-orb-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(3rem, -3rem, 0) scale(1.05);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .app {
+  .app::before,
+  .app::after {
     animation: none;
   }
 }
