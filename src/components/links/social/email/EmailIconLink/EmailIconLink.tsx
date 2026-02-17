@@ -4,7 +4,7 @@ import EmailLink from '../EmailLink/EmailLink'
 
 const EmailIconLink: React.FC = () => {
   return (
-    <EmailLink>
+    <EmailLink className="email-icon-link">
       <span className="link-icon"><FaEnvelope /></span>
     </EmailLink>
   )

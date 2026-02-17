@@ -33,8 +33,13 @@
   transform: scale(1.22);
 }
 
-.bio-links a:nth-child(3):hover {
-  animation: icon-spin 700ms linear infinite;
+.bio-links a.email-icon-link {
+  transition: transform 260ms ease-out, opacity 260ms ease-out;
+}
+
+.bio-links a.email-icon-link:hover {
+  transform: translateY(-2px);
+  opacity: 0.92;
 }
 
 .bio-links a:nth-child(4):hover {
