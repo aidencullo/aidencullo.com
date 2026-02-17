@@ -1,0 +1,30 @@
+.visitor-footprint {
+  position: fixed;
+  right: 0.7rem;
+  bottom: 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.56rem;
+  letter-spacing: 0.04em;
+  opacity: 0.2;
+  color: var(--text-secondary);
+  pointer-events: none;
+  user-select: none;
+  z-index: 3;
+  text-align: right;
+  max-width: min(72vw, 26rem);
+  line-height: 1.25;
+}
+
+:root[data-theme='dark'] .visitor-footprint {
+  color: var(--text-primary);
+  opacity: 0.22;
+}
+
+@media (max-width: 768px) {
+  .visitor-footprint {
+    right: 0.5rem;
+    bottom: 0.45rem;
+    font-size: 0.5rem;
+    max-width: 80vw;
+  }
+}
