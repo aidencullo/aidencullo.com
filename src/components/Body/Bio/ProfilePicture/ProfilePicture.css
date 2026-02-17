@@ -16,3 +16,7 @@
   height: 100%;
   object-fit: cover;
 }
+
+.profile-picture a {
+  display: block;
+}
