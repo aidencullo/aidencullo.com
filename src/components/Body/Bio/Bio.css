@@ -22,6 +22,8 @@
   font-size: 1rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  text-decoration: none;
+  color: inherit;
   opacity: 0;
   animation: bio-welcome-fade 900ms ease-out forwards;
 }
