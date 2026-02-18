@@ -30,15 +30,17 @@ const weatherLabel = (code?: number): string => {
 }
 
 const VisitorFootprint: React.FC = () => {
-  const [line, setLine] = useState('')
-  const [sourceLine, setSourceLine] = useState('')
+  const fallbackLine = 'connecting from unavailable • weather unavailable'
+  const fallbackSource = 'location: ipapi.co • weather: open-meteo.com'
+  const [line, setLine] = useState(fallbackLine)
+  const [sourceLine, setSourceLine] = useState(fallbackSource)
 
   useEffect(() => {
     const controller = new AbortController()
 
     const load = async () => {
       try {
-        setSourceLine('location: ipapi.co')
+        setSourceLine(fallbackSource)
         const locationRes = await fetch('https://ipapi.co/json/', { signal: controller.signal })
         if (!locationRes.ok) return
         const locationData = (await locationRes.json()) as LocationData
@@ -63,7 +65,7 @@ const VisitorFootprint: React.FC = () => {
               const code = weatherData.current?.weather_code
               if (typeof temp === 'number') {
                 setLine(`${locationPrefix} • ${Math.round(temp)}F ${weatherLabel(code)}`)
-                setSourceLine('location: ipapi.co • weather: open-meteo.com')
+                setSourceLine(fallbackSource)
                 return
               }
             }
@@ -74,16 +76,14 @@ const VisitorFootprint: React.FC = () => {
 
         setLine(locationPrefix)
       } catch {
-        setLine('')
-        setSourceLine('')
+        setLine(fallbackLine)
+        setSourceLine(fallbackSource)
       }
     }
 
     void load()
     return () => controller.abort()
   }, [])
-
-  if (!line) return null
 
   return (
     <div className="visitor-footprint">
