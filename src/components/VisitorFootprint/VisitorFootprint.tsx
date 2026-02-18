@@ -31,12 +31,14 @@ const weatherLabel = (code?: number): string => {
 
 const VisitorFootprint: React.FC = () => {
   const [line, setLine] = useState('')
+  const [sourceLine, setSourceLine] = useState('')
 
   useEffect(() => {
     const controller = new AbortController()
 
     const load = async () => {
       try {
+        setSourceLine('location: ipapi.co')
         const locationRes = await fetch('https://ipapi.co/json/', { signal: controller.signal })
         if (!locationRes.ok) return
         const locationData = (await locationRes.json()) as LocationData
@@ -45,6 +47,7 @@ const VisitorFootprint: React.FC = () => {
         const locationText = parts.join(', ')
         if (!locationText) return
 
+        const locationPrefix = `connecting from ${locationText}`
         if (
           typeof locationData.latitude === 'number' &&
           typeof locationData.longitude === 'number'
@@ -59,7 +62,8 @@ const VisitorFootprint: React.FC = () => {
               const temp = weatherData.current?.temperature_2m
               const code = weatherData.current?.weather_code
               if (typeof temp === 'number') {
-                setLine(`${locationText} • ${Math.round(temp)}F ${weatherLabel(code)}`)
+                setLine(`${locationPrefix} • ${Math.round(temp)}F ${weatherLabel(code)}`)
+                setSourceLine('location: ipapi.co • weather: open-meteo.com')
                 return
               }
             }
@@ -68,9 +72,10 @@ const VisitorFootprint: React.FC = () => {
           }
         }
 
-        setLine(locationText)
+        setLine(locationPrefix)
       } catch {
         setLine('')
+        setSourceLine('')
       }
     }
 
@@ -80,7 +85,12 @@ const VisitorFootprint: React.FC = () => {
 
   if (!line) return null
 
-  return <div className="visitor-footprint">{line}</div>
+  return (
+    <div className="visitor-footprint">
+      <div>{line}</div>
+      <div className="visitor-footprint-source">{sourceLine}</div>
+    </div>
+  )
 }
 
 export default VisitorFootprint
