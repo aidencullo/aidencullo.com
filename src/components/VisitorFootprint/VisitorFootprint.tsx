@@ -3,10 +3,14 @@ import './VisitorFootprint.css'
 
 type LocationData = {
   city?: string
+  region_code?: string
   region?: string
+  country?: string
   country_name?: string
   latitude?: number
   longitude?: number
+  lat?: number
+  lon?: number
 }
 
 type WeatherData = {
@@ -29,9 +33,16 @@ const weatherLabel = (code?: number): string => {
   return 'weather unavailable'
 }
 
+const locationTextFrom = (data: LocationData): string => {
+  const parts = [data.city, data.region_code ?? data.region, data.country ?? data.country_name].filter(Boolean)
+  return parts.join(', ')
+}
+
 const VisitorFootprint: React.FC = () => {
-  const fallbackLine = 'connecting from unavailable • weather unavailable'
-  const fallbackSource = 'location: ipapi.co • weather: open-meteo.com'
+  const loadingLine = 'connecting from your area • checking weather...'
+  const fallbackLine = 'connecting from your area • weather unavailable'
+  const fallbackSource = 'location: ipapi.co/ipwho.is • weather: open-meteo.com'
+  const locationUnavailable = 'connecting from unavailable'
   const [line, setLine] = useState(fallbackLine)
   const [sourceLine, setSourceLine] = useState(fallbackSource)
 
@@ -40,23 +51,43 @@ const VisitorFootprint: React.FC = () => {
 
     const load = async () => {
       try {
+        setLine(loadingLine)
         setSourceLine(fallbackSource)
-        const locationRes = await fetch('https://ipapi.co/json/', { signal: controller.signal })
-        if (!locationRes.ok) return
-        const locationData = (await locationRes.json()) as LocationData
+        let locationData: LocationData | null = null
 
-        const parts = [locationData.city, locationData.region, locationData.country_name].filter(Boolean)
-        const locationText = parts.join(', ')
-        if (!locationText) return
+        const locationRes = await fetch('https://ipapi.co/json/', { signal: controller.signal })
+        if (locationRes.ok) {
+          locationData = (await locationRes.json()) as LocationData
+        }
+
+        if (!locationData || !locationTextFrom(locationData)) {
+          const fallbackLocationRes = await fetch('https://ipwho.is/', { signal: controller.signal })
+          if (fallbackLocationRes.ok) {
+            locationData = (await fallbackLocationRes.json()) as LocationData
+          }
+        }
+
+        if (!locationData) {
+          setLine(fallbackLine)
+          return
+        }
+
+        const locationText = locationTextFrom(locationData)
+        if (!locationText) {
+          setLine(locationUnavailable)
+          return
+        }
 
         const locationPrefix = `connecting from ${locationText}`
+        const latitude = typeof locationData.latitude === 'number' ? locationData.latitude : locationData.lat
+        const longitude = typeof locationData.longitude === 'number' ? locationData.longitude : locationData.lon
         if (
-          typeof locationData.latitude === 'number' &&
-          typeof locationData.longitude === 'number'
+          typeof latitude === 'number' &&
+          typeof longitude === 'number'
         ) {
           try {
             const weatherRes = await fetch(
-              `https://api.open-meteo.com/v1/forecast?latitude=${locationData.latitude}&longitude=${locationData.longitude}&current=temperature_2m,weather_code&temperature_unit=fahrenheit`,
+              `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code&temperature_unit=fahrenheit`,
               { signal: controller.signal }
             )
             if (weatherRes.ok) {
