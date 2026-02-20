@@ -13,6 +13,14 @@ type LocationData = {
   lon?: number
 }
 
+type ReverseGeoData = {
+  city?: string
+  locality?: string
+  principalSubdivisionCode?: string
+  countryCode?: string
+  countryName?: string
+}
+
 type WeatherData = {
   current?: {
     temperature_2m?: number
@@ -38,74 +46,119 @@ const locationTextFrom = (data: LocationData): string => {
   return parts.join(', ')
 }
 
+const locationTextFromReverseGeo = (data: ReverseGeoData): string => {
+  const subdivisionCode = data.principalSubdivisionCode?.split('-')[1]
+  const parts = [data.city ?? data.locality, subdivisionCode, data.countryCode ?? data.countryName].filter(Boolean)
+  return parts.join(', ')
+}
+
+const fetchJsonWithTimeout = async <T,>(url: string, timeoutMs = 3500): Promise<T | null> => {
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), timeoutMs)
+  try {
+    const res = await fetch(url, { signal: controller.signal })
+    if (!res.ok) return null
+    return (await res.json()) as T
+  } catch {
+    return null
+  } finally {
+    clearTimeout(timeout)
+  }
+}
+
+const getBrowserCoordinates = async (): Promise<{ latitude: number; longitude: number } | null> => {
+  if (!navigator.geolocation) return null
+  return new Promise((resolve) => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        resolve({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        })
+      },
+      () => resolve(null),
+      { enableHighAccuracy: false, timeout: 5000, maximumAge: 300000 }
+    )
+  })
+}
+
 const VisitorFootprint: React.FC = () => {
-  const loadingLine = 'connecting from your area • checking weather...'
+  const loadingLine = 'finding your location...'
   const fallbackLine = 'connecting from your area • weather unavailable'
   const fallbackSource = 'location: ipapi.co/ipwho.is • weather: open-meteo.com'
-  const locationUnavailable = 'connecting from unavailable'
+  const locationUnavailable = 'location unavailable • weather unavailable'
   const [line, setLine] = useState(fallbackLine)
   const [sourceLine, setSourceLine] = useState(fallbackSource)
 
   useEffect(() => {
-    const controller = new AbortController()
-
     const load = async () => {
       try {
         setLine(loadingLine)
         setSourceLine(fallbackSource)
-        let locationData: LocationData | null = null
 
-        const locationRes = await fetch('https://ipapi.co/json/', { signal: controller.signal })
-        if (locationRes.ok) {
-          locationData = (await locationRes.json()) as LocationData
-        }
+        let locationLabel = 'your area'
+        let latitude: number | undefined
+        let longitude: number | undefined
 
-        if (!locationData || !locationTextFrom(locationData)) {
-          const fallbackLocationRes = await fetch('https://ipwho.is/', { signal: controller.signal })
-          if (fallbackLocationRes.ok) {
-            locationData = (await fallbackLocationRes.json()) as LocationData
+        const browserCoords = await getBrowserCoordinates()
+        if (browserCoords) {
+          latitude = browserCoords.latitude
+          longitude = browserCoords.longitude
+          const reverseGeo = await fetchJsonWithTimeout<ReverseGeoData>(
+            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`,
+            3500
+          )
+          const reverseLabel = reverseGeo ? locationTextFromReverseGeo(reverseGeo) : ''
+          if (reverseLabel) {
+            locationLabel = reverseLabel
+            setSourceLine('location: browser geolocation • weather: open-meteo.com')
+          } else {
+            locationLabel = `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`
+            setSourceLine('location: browser geolocation • weather: open-meteo.com')
           }
         }
 
-        if (!locationData) {
-          setLine(fallbackLine)
-          return
-        }
-
-        const locationText = locationTextFrom(locationData)
-        if (!locationText) {
-          setLine(locationUnavailable)
-          return
-        }
-
-        const locationPrefix = `connecting from ${locationText}`
-        const latitude = typeof locationData.latitude === 'number' ? locationData.latitude : locationData.lat
-        const longitude = typeof locationData.longitude === 'number' ? locationData.longitude : locationData.lon
-        if (
-          typeof latitude === 'number' &&
-          typeof longitude === 'number'
-        ) {
-          try {
-            const weatherRes = await fetch(
-              `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code&temperature_unit=fahrenheit`,
-              { signal: controller.signal }
-            )
-            if (weatherRes.ok) {
-              const weatherData = (await weatherRes.json()) as WeatherData
-              const temp = weatherData.current?.temperature_2m
-              const code = weatherData.current?.weather_code
-              if (typeof temp === 'number') {
-                setLine(`${locationPrefix} • ${Math.round(temp)}F ${weatherLabel(code)}`)
-                setSourceLine(fallbackSource)
-                return
-              }
-            }
-          } catch {
-            // Keep location-only fallback.
+        if (latitude === undefined || longitude === undefined) {
+          let locationData = await fetchJsonWithTimeout<LocationData>('https://ipapi.co/json/', 3000)
+          if (!locationData || !locationTextFrom(locationData)) {
+            locationData = await fetchJsonWithTimeout<LocationData>('https://ipwho.is/', 3000)
           }
+
+          if (!locationData) {
+            setLine(locationUnavailable)
+            return
+          }
+
+          const locationText = locationTextFrom(locationData)
+          if (!locationText) {
+            setLine(locationUnavailable)
+            return
+          }
+
+          locationLabel = locationText
+          latitude = typeof locationData.latitude === 'number' ? locationData.latitude : locationData.lat
+          longitude = typeof locationData.longitude === 'number' ? locationData.longitude : locationData.lon
         }
 
-        setLine(locationPrefix)
+        const locationPrefix = `connecting from ${locationLabel}`
+        if (typeof latitude !== 'number' || typeof longitude !== 'number') {
+          setLine(locationPrefix)
+          return
+        }
+
+        const weatherData = await fetchJsonWithTimeout<WeatherData>(
+          `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code&temperature_unit=fahrenheit`,
+          4000
+        )
+
+        const temp = weatherData?.current?.temperature_2m
+        const code = weatherData?.current?.weather_code
+        if (typeof temp === 'number') {
+          setLine(`${locationPrefix} • ${Math.round(temp)}F ${weatherLabel(code)}`)
+          return
+        }
+
+        setLine(`${locationPrefix} • weather unavailable`)
       } catch {
         setLine(fallbackLine)
         setSourceLine(fallbackSource)
@@ -113,7 +166,7 @@ const VisitorFootprint: React.FC = () => {
     }
 
     void load()
-    return () => controller.abort()
+    return () => undefined
   }, [])
 
   return (
