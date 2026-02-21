@@ -29,7 +29,6 @@ const Bio: React.FC = () => {
   ]
 
   const [welcome, setWelcome] = useState(welcomes[0])
-  const [isHoveringWelcome, setIsHoveringWelcome] = useState(false)
   const translateUrl = `https://translate.google.com/?sl=auto&tl=en&text=${encodeURIComponent(welcome.text)}&op=translate`
 
   useEffect(() => {
@@ -40,15 +39,12 @@ const Bio: React.FC = () => {
   return (
     <div className="bio-container" id="bio">
       <a
-        className={`bio-welcome ${isHoveringWelcome ? 'is-hovering' : ''}`}
+        className="bio-welcome"
         href={translateUrl}
         target="_blank"
         rel="noopener noreferrer"
-        onMouseEnter={() => setIsHoveringWelcome(true)}
-        onMouseLeave={() => setIsHoveringWelcome(false)}
       >
-        <span className="bio-welcome-text bio-welcome-original">{welcome.text}</span>
-        <span className="bio-welcome-text bio-welcome-english">Welcome</span>
+        <span className="bio-welcome-text">{welcome.text}</span>
       </a>
       <ProfilePicture />
       <BioText />

@@ -33,22 +33,6 @@
   transition: opacity 520ms ease-in-out;
 }
 
-.bio-welcome-original {
-  opacity: 1;
-}
-
-.bio-welcome-english {
-  opacity: 0;
-}
-
-.bio-welcome.is-hovering .bio-welcome-original {
-  opacity: 0;
-}
-
-.bio-welcome.is-hovering .bio-welcome-english {
-  opacity: 1;
-}
-
 .bio-welcome-language {
   margin: -1rem 0 0.5rem;
   font-size: 0.8rem;
