@@ -50,7 +50,6 @@ const Bio: React.FC = () => {
         <span className="bio-welcome-text bio-welcome-original">{welcome.text}</span>
         <span className="bio-welcome-text bio-welcome-english">Welcome</span>
       </a>
-      <p className="bio-welcome-language">Language: {welcome.language}</p>
       <ProfilePicture />
       <BioText />
       <BioLinks />
