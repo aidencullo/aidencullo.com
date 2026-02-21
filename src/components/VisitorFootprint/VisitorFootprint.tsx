@@ -6,11 +6,13 @@ type LocationData = {
   region_code?: string
   region?: string
   country?: string
+  country_code?: string
   country_name?: string
   latitude?: number
   longitude?: number
   lat?: number
   lon?: number
+  loc?: string
 }
 
 type WeatherData = {
@@ -34,8 +36,29 @@ const weatherLabel = (code?: number): string => {
 }
 
 const locationTextFrom = (data: LocationData): string => {
-  const parts = [data.city, data.region_code ?? data.region, data.country ?? data.country_name].filter(Boolean)
+  const parts = [
+    data.city,
+    data.region_code ?? data.region,
+    data.country_code ?? data.country ?? data.country_name,
+  ].filter(Boolean)
   return parts.join(', ')
+}
+
+const coordinatesFrom = (data: LocationData): { latitude?: number; longitude?: number } => {
+  const latitude = typeof data.latitude === 'number' ? data.latitude : data.lat
+  const longitude = typeof data.longitude === 'number' ? data.longitude : data.lon
+  if (typeof latitude === 'number' && typeof longitude === 'number') {
+    return { latitude, longitude }
+  }
+  if (typeof data.loc === 'string') {
+    const [latText, lonText] = data.loc.split(',')
+    const lat = Number(latText)
+    const lon = Number(lonText)
+    if (Number.isFinite(lat) && Number.isFinite(lon)) {
+      return { latitude: lat, longitude: lon }
+    }
+  }
+  return {}
 }
 
 const fetchJsonWithTimeout = async <T,>(url: string, timeoutMs = 3500): Promise<T | null> => {
@@ -107,6 +130,13 @@ const VisitorFootprint: React.FC = () => {
         }
 
         if (!locationData || !locationTextFrom(locationData)) {
+          locationData = await fetchJsonWithTimeout<LocationData>('https://ipinfo.io/json', 3000)
+          if (locationData && locationTextFrom(locationData)) {
+            setSourceLine('location: request ip via ipinfo.io • weather: open-meteo.com')
+          }
+        }
+
+        if (!locationData || !locationTextFrom(locationData)) {
           locationData = await fetchJsonWithTimeout<LocationData>('https://ipapi.co/json/', 3000)
           if (locationData && locationTextFrom(locationData)) {
             setSourceLine('location: request ip via ipapi.co • weather: open-meteo.com')
@@ -132,8 +162,9 @@ const VisitorFootprint: React.FC = () => {
         }
 
         locationLabel = locationText
-        latitude = typeof locationData.latitude === 'number' ? locationData.latitude : locationData.lat
-        longitude = typeof locationData.longitude === 'number' ? locationData.longitude : locationData.lon
+        const coords = coordinatesFrom(locationData)
+        latitude = coords.latitude
+        longitude = coords.longitude
 
         const locationPrefix = `connecting from ${locationLabel}`
         if (typeof latitude !== 'number' || typeof longitude !== 'number') {
