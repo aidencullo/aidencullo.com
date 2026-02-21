@@ -35,11 +35,6 @@ body {
   margin: 0;
 }
 
-#root {
-  opacity: 0;
-  animation: pageFadeIn 2.8s ease-out forwards;
-}
-
 button, a { 
   color: inherit;
   cursor: pointer;
@@ -70,22 +65,6 @@ a:hover {
     opacity: 0;
   }
   to {
-    opacity: 1;
-  }
-}
-
-@keyframes pageFadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #root {
-    animation: none;
     opacity: 1;
   }
 }

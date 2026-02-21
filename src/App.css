@@ -48,6 +48,16 @@
 .app > * {
   position: relative;
   z-index: 1;
+  opacity: 0;
+  animation: app-content-fade 720ms ease-out forwards;
+}
+
+.app > *:nth-child(1) {
+  animation-delay: 100ms;
+}
+
+.app > *:nth-child(2) {
+  animation-delay: 220ms;
 }
 
 @keyframes perforated-drift-a {
@@ -77,7 +87,22 @@
   }
 }
 
+@keyframes app-content-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .app > * {
+    animation: none;
+    opacity: 1;
+  }
+
   .app::before,
   .app::after {
     animation: none;
