@@ -28,21 +28,21 @@
 }
 
 .app::before {
-  background-image: radial-gradient(circle at center, rgba(118, 118, 118, 0.55) 0 0.5px, transparent 0.9px);
+  background-image: radial-gradient(circle at center, rgba(118, 118, 118, 0.7) 0 0.5px, transparent 0.9px);
   background-size: 8px 8px;
   -webkit-mask-image: repeating-linear-gradient(45deg, transparent 0 17px, #000 17px 18px);
   mask-image: repeating-linear-gradient(45deg, transparent 0 17px, #000 17px 18px);
   animation: perforated-drift-a 24s linear infinite;
-  opacity: 0.9;
+  opacity: 0.96;
 }
 
 .app::after {
-  background-image: radial-gradient(circle at center, rgba(102, 102, 102, 0.52) 0 0.5px, transparent 0.9px);
+  background-image: radial-gradient(circle at center, rgba(102, 102, 102, 0.66) 0 0.5px, transparent 0.9px);
   background-size: 8px 8px;
   -webkit-mask-image: repeating-linear-gradient(-45deg, transparent 0 17px, #000 17px 18px);
   mask-image: repeating-linear-gradient(-45deg, transparent 0 17px, #000 17px 18px);
   animation: perforated-drift-b 24s linear infinite;
-  opacity: 0.85;
+  opacity: 0.94;
 }
 
 .app > * {
