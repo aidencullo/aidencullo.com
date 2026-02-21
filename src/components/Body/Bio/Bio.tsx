@@ -15,17 +15,17 @@ const Bio: React.FC = () => {
     { text: 'Welkom', language: 'Dutch' },
     { text: 'Witamy', language: 'Polish' },
     { text: 'Καλώς ήρθες', language: 'Greek' },
-    { text: 'Привет', language: 'Russian' },
-    { text: 'مرحبا', language: 'Arabic' },
-    { text: 'שלום', language: 'Hebrew' },
-    { text: 'नमस्ते', language: 'Hindi' },
-    { text: 'สวัสดี', language: 'Thai' },
-    { text: 'Xin chào', language: 'Vietnamese' },
-    { text: '你好', language: 'Chinese (Mandarin)' },
-    { text: 'こんにちは', language: 'Japanese' },
-    { text: '안녕하세요', language: 'Korean' },
+    { text: 'Добро пожаловать', language: 'Russian' },
+    { text: 'أهلاً وسهلاً', language: 'Arabic' },
+    { text: 'ברוכים הבאים', language: 'Hebrew' },
+    { text: 'स्वागत है', language: 'Hindi' },
+    { text: 'ยินดีต้อนรับ', language: 'Thai' },
+    { text: 'Chào mừng', language: 'Vietnamese' },
+    { text: '欢迎', language: 'Chinese (Mandarin)' },
+    { text: 'ようこそ', language: 'Japanese' },
+    { text: '환영합니다', language: 'Korean' },
     { text: 'Karibu', language: 'Swahili' },
-    { text: 'Kia ora', language: 'Maori' }
+    { text: 'Nau mai', language: 'Maori' }
   ]
 
   const [welcome, setWelcome] = useState(welcomes[0])
