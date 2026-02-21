@@ -21,7 +21,6 @@
   display: inline-flex;
   transform-origin: center;
   filter: brightness(0.75);
-  animation: icon-pulse 1.3s ease-in-out infinite;
 }
 
 .bio-links a:hover {
@@ -47,50 +46,11 @@
 }
 
 .bio-links a:nth-child(4):hover {
-  animation: icon-jiggle 520ms ease-in-out infinite;
+  transform: scale(1);
 }
 
 .bio-links a:nth-child(5):hover {
   transform: translateY(-0.3rem) rotate(-8deg);
-}
-
-@keyframes icon-jiggle {
-  0% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(7deg);
-  }
-  50% {
-    transform: rotate(-7deg);
-  }
-  75% {
-    transform: rotate(5deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
-}
-
-@keyframes icon-pulse {
-  0% {
-    filter: brightness(0.72);
-  }
-  50% {
-    filter: brightness(1.55);
-  }
-  100% {
-    filter: brightness(0.72);
-  }
-}
-
-@keyframes icon-spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }
 
 @media (max-width: 768px) {
