@@ -1,6 +1,6 @@
 .footer {
   padding: 40px 60px;
-  font-size: .75rem;
+  font-size: 0.88rem;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -14,6 +14,6 @@
 @media (max-width: 768px) {
   .footer {
     padding: 24px 18px;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
 }

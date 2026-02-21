@@ -3,7 +3,7 @@
   right: 0.85rem;
   bottom: 0.75rem;
   font-family: var(--font-body);
-  font-size: 0.62rem;
+  font-size: 0.74rem;
   letter-spacing: 0.04em;
   opacity: 0.94;
   color: var(--text-secondary);
@@ -22,7 +22,7 @@
 
 .visitor-footprint-source {
   margin-top: 0.16rem;
-  font-size: 0.53rem;
+  font-size: 0.64rem;
   opacity: 0.86;
 }
 
@@ -37,7 +37,7 @@
   .visitor-footprint {
     right: 0.45rem;
     bottom: 0.45rem;
-    font-size: 0.52rem;
+    font-size: 0.64rem;
     max-width: 80vw;
     padding: 0.33rem 0.42rem;
   }

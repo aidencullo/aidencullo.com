@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Instrument+Sans:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap');
 
 :root {
   --primary: #1a365d;
@@ -8,8 +7,8 @@
   --text-primary: var(--secondary);
   --text-secondary: var(--primary);
   --app-bg: linear-gradient(135deg, #edf2f7 0%, #e2e8f0 55%, #cbd5e1 100%);
-  --font-body: "Instrument Sans", "Avenir Next", "Segoe UI", sans-serif;
-  --font-display: "Fraunces", "Iowan Old Style", "Times New Roman", serif;
+  --font-body: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
+  --font-display: "Plus Jakarta Sans", "Manrope", "Avenir Next", sans-serif;
 }
 
 :root[data-theme="dark"] {
@@ -20,7 +19,7 @@
 }
 
 html {
-  font-size: 17px;
+  font-size: 19px;
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
