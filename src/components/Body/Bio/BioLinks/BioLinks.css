@@ -20,8 +20,8 @@
   font-size: 3rem;
   display: inline-flex;
   transform-origin: center;
-  filter: brightness(0.9);
-  animation: icon-pulse 2.8s ease-in-out infinite;
+  filter: brightness(0.85);
+  animation: icon-pulse 1.6s ease-in-out infinite;
 }
 
 .bio-links a:hover {
@@ -74,13 +74,13 @@
 
 @keyframes icon-pulse {
   0% {
-    filter: brightness(0.9);
+    filter: brightness(0.82);
   }
   50% {
-    filter: brightness(1.2);
+    filter: brightness(1.35);
   }
   100% {
-    filter: brightness(0.9);
+    filter: brightness(0.82);
   }
 }
 
