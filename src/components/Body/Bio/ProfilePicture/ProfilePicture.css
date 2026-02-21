@@ -20,3 +20,9 @@
 .profile-picture a {
   display: block;
 }
+
+.profile-picture a:hover,
+.profile-picture a:focus-visible {
+  opacity: 1;
+  color: inherit;
+}
