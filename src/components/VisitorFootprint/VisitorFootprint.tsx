@@ -13,14 +13,6 @@ type LocationData = {
   lon?: number
 }
 
-type ReverseGeoData = {
-  city?: string
-  locality?: string
-  principalSubdivisionCode?: string
-  countryCode?: string
-  countryName?: string
-}
-
 type WeatherData = {
   current?: {
     temperature_2m?: number
@@ -46,12 +38,6 @@ const locationTextFrom = (data: LocationData): string => {
   return parts.join(', ')
 }
 
-const locationTextFromReverseGeo = (data: ReverseGeoData): string => {
-  const subdivisionCode = data.principalSubdivisionCode?.split('-')[1]
-  const parts = [data.city ?? data.locality, subdivisionCode, data.countryCode ?? data.countryName].filter(Boolean)
-  return parts.join(', ')
-}
-
 const fetchJsonWithTimeout = async <T,>(url: string, timeoutMs = 3500): Promise<T | null> => {
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), timeoutMs)
@@ -64,22 +50,6 @@ const fetchJsonWithTimeout = async <T,>(url: string, timeoutMs = 3500): Promise<
   } finally {
     clearTimeout(timeout)
   }
-}
-
-const getBrowserCoordinates = async (): Promise<{ latitude: number; longitude: number } | null> => {
-  if (!navigator.geolocation) return null
-  return new Promise((resolve) => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        resolve({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        })
-      },
-      () => resolve(null),
-      { enableHighAccuracy: false, timeout: 5000, maximumAge: 300000 }
-    )
-  })
 }
 
 const VisitorFootprint: React.FC = () => {
@@ -100,45 +70,25 @@ const VisitorFootprint: React.FC = () => {
         let latitude: number | undefined
         let longitude: number | undefined
 
-        const browserCoords = await getBrowserCoordinates()
-        if (browserCoords) {
-          latitude = browserCoords.latitude
-          longitude = browserCoords.longitude
-          const reverseGeo = await fetchJsonWithTimeout<ReverseGeoData>(
-            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`,
-            3500
-          )
-          const reverseLabel = reverseGeo ? locationTextFromReverseGeo(reverseGeo) : ''
-          if (reverseLabel) {
-            locationLabel = reverseLabel
-            setSourceLine('location: browser geolocation • weather: open-meteo.com')
-          } else {
-            locationLabel = `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`
-            setSourceLine('location: browser geolocation • weather: open-meteo.com')
-          }
+        let locationData = await fetchJsonWithTimeout<LocationData>('https://ipapi.co/json/', 3000)
+        if (!locationData || !locationTextFrom(locationData)) {
+          locationData = await fetchJsonWithTimeout<LocationData>('https://ipwho.is/', 3000)
         }
 
-        if (latitude === undefined || longitude === undefined) {
-          let locationData = await fetchJsonWithTimeout<LocationData>('https://ipapi.co/json/', 3000)
-          if (!locationData || !locationTextFrom(locationData)) {
-            locationData = await fetchJsonWithTimeout<LocationData>('https://ipwho.is/', 3000)
-          }
-
-          if (!locationData) {
-            setLine(locationUnavailable)
-            return
-          }
-
-          const locationText = locationTextFrom(locationData)
-          if (!locationText) {
-            setLine(locationUnavailable)
-            return
-          }
-
-          locationLabel = locationText
-          latitude = typeof locationData.latitude === 'number' ? locationData.latitude : locationData.lat
-          longitude = typeof locationData.longitude === 'number' ? locationData.longitude : locationData.lon
+        if (!locationData) {
+          setLine(locationUnavailable)
+          return
         }
+
+        const locationText = locationTextFrom(locationData)
+        if (!locationText) {
+          setLine(locationUnavailable)
+          return
+        }
+
+        locationLabel = locationText
+        latitude = typeof locationData.latitude === 'number' ? locationData.latitude : locationData.lat
+        longitude = typeof locationData.longitude === 'number' ? locationData.longitude : locationData.lon
 
         const locationPrefix = `connecting from ${locationLabel}`
         if (typeof latitude !== 'number' || typeof longitude !== 'number') {
