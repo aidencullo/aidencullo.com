@@ -52,10 +52,36 @@ const fetchJsonWithTimeout = async <T,>(url: string, timeoutMs = 3500): Promise<
   }
 }
 
+const fetchTextWithTimeout = async (url: string, timeoutMs = 2500): Promise<string | null> => {
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), timeoutMs)
+  try {
+    const res = await fetch(url, { signal: controller.signal })
+    if (!res.ok) return null
+    return await res.text()
+  } catch {
+    return null
+  } finally {
+    clearTimeout(timeout)
+  }
+}
+
+const parseCloudflareTrace = (trace: string): { ip?: string } => {
+  const lines = trace.split('\n')
+  const map: Record<string, string> = {}
+  for (const line of lines) {
+    const idx = line.indexOf('=')
+    if (idx > 0) {
+      map[line.slice(0, idx)] = line.slice(idx + 1)
+    }
+  }
+  return { ip: map.ip }
+}
+
 const VisitorFootprint: React.FC = () => {
   const loadingLine = 'finding your location...'
   const fallbackLine = 'connecting from your area • weather unavailable'
-  const fallbackSource = 'location: ipapi.co/ipwho.is • weather: open-meteo.com'
+  const fallbackSource = 'location: request ip • weather: open-meteo.com'
   const locationUnavailable = 'location unavailable • weather unavailable'
   const [line, setLine] = useState(fallbackLine)
   const [sourceLine, setSourceLine] = useState(fallbackSource)
@@ -70,9 +96,28 @@ const VisitorFootprint: React.FC = () => {
         let latitude: number | undefined
         let longitude: number | undefined
 
-        let locationData = await fetchJsonWithTimeout<LocationData>('https://ipapi.co/json/', 3000)
+        let locationData: LocationData | null = null
+        const cfTrace = await fetchTextWithTimeout('/cdn-cgi/trace', 2500)
+        const cfIp = cfTrace ? parseCloudflareTrace(cfTrace).ip : undefined
+        if (cfIp) {
+          locationData = await fetchJsonWithTimeout<LocationData>(`https://ipwho.is/${cfIp}`, 3000)
+          if (locationData && locationTextFrom(locationData)) {
+            setSourceLine('location: incoming request ip (cloudflare) • weather: open-meteo.com')
+          }
+        }
+
+        if (!locationData || !locationTextFrom(locationData)) {
+          locationData = await fetchJsonWithTimeout<LocationData>('https://ipapi.co/json/', 3000)
+          if (locationData && locationTextFrom(locationData)) {
+            setSourceLine('location: request ip via ipapi.co • weather: open-meteo.com')
+          }
+        }
+
         if (!locationData || !locationTextFrom(locationData)) {
           locationData = await fetchJsonWithTimeout<LocationData>('https://ipwho.is/', 3000)
+          if (locationData && locationTextFrom(locationData)) {
+            setSourceLine('location: request ip via ipwho.is • weather: open-meteo.com')
+          }
         }
 
         if (!locationData) {
