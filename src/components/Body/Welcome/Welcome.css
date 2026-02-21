@@ -17,7 +17,7 @@
 }
 
 .name {
-  font-size: clamp(5rem, 12vw, 8.5rem);
+  font-size: clamp(6rem, 13vw, 10rem);
   font-family: var(--font-display);
   font-weight: 300;
   margin: 0;
@@ -44,7 +44,7 @@
   }
 
   .name {
-    font-size: clamp(3rem, 16vw, 5rem);
+    font-size: clamp(3.6rem, 17vw, 5.8rem);
     letter-spacing: 0;
     padding: 0 0.5rem;
     box-sizing: border-box;
