@@ -46,7 +46,7 @@
 }
 
 .bio-links a:nth-child(4):hover {
-  transform: scale(1);
+  transform: translateY(-3px) scale(1.12);
 }
 
 .bio-links a:nth-child(5):hover {
