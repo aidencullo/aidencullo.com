@@ -4,6 +4,7 @@ import LinkedInIconLink from '@links/social/linkedin/LinkedInIconLink/LinkedInIc
 import EmailIconLink from '@links/social/email/EmailIconLink/EmailIconLink'
 import ResumeIconLink from '@links/social/resume/ResumeIconLink/ResumeIconLink'
 import CalendlyIconLink from '@links/social/calendly/CalendlyIconLink/CalendlyIconLink'
+import SpotifyIconLink from '@links/social/spotify/SpotifyIconLink/SpotifyIconLink'
 import './BioLinks.css'
 
 const BioLinks: React.FC = () => {
@@ -14,6 +15,7 @@ const BioLinks: React.FC = () => {
       <EmailIconLink />
       <ResumeIconLink />
       <CalendlyIconLink />
+      <SpotifyIconLink />
     </div>
   )
 }

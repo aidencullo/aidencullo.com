@@ -53,6 +53,10 @@
   transform: translateY(-0.3rem) rotate(-8deg);
 }
 
+.bio-links a:nth-child(6):hover {
+  transform: scale(1.15);
+}
+
 @media (max-width: 768px) {
   .bio-links {
     gap: 1rem;
