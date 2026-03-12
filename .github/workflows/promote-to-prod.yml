@@ -11,6 +11,7 @@ permissions:
 jobs:
   promote-and-deploy:
     runs-on: ubuntu-latest
+    environment: production
     steps:
       - name: Checkout prod
         uses: actions/checkout@v4
