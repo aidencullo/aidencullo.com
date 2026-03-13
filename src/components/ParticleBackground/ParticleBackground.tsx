@@ -14,10 +14,10 @@ interface Particle {
 
 const COUNT = 90
 const TRAIL = 22
-const MAX_SPEED = 1.1
+const MAX_SPEED = 3.5
 const JITTER = 0.018
-const MAGNETIC_STRENGTH = 18000
-const MAGNETIC_RADIUS = 350
+const MAGNETIC_STRENGTH = 80000
+const MAGNETIC_RADIUS = 500
 
 const ParticleBackground: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
