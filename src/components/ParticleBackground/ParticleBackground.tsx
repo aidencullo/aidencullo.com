@@ -76,12 +76,12 @@ const ParticleBackground: React.FC = () => {
 
           const dist = mouse ? Math.hypot(mouse.x - x, mouse.y - y) : Infinity
           const influence = mouse ? Math.min(1, 600 / Math.max(dist, 1)) : 0
-          const opacity = 0.08 + influence * 0.35
+          const opacity = 0.04 + influence * 0.18
 
           ctx.beginPath()
           ctx.moveTo(x - cos * half, y - sin * half)
           ctx.lineTo(x + cos * half, y + sin * half)
-          ctx.strokeStyle = `rgba(180, 180, 180, ${opacity})`
+          ctx.strokeStyle = `rgba(255, 248, 235, ${opacity})`
           ctx.lineWidth = BAR_WIDTH
           ctx.lineCap = 'round'
           ctx.stroke()
