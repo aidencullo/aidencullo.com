@@ -27,23 +27,20 @@ const welcomes = [
   { text: 'Nau mai', language: 'Maori' }
 ]
 
-const english = welcomes[0]
-const nonEnglish = welcomes.slice(1)
 const FADE_MS = 520
 const HOLD_MS = 2500
 
 const Bio: React.FC = () => {
-  const chosen = useRef(nonEnglish[Math.floor(Math.random() * nonEnglish.length)])
-  const [welcome, setWelcome] = useState(chosen.current)
+  const indexRef = useRef(Math.floor(Math.random() * welcomes.length))
+  const [welcome, setWelcome] = useState(welcomes[indexRef.current])
   const [visible, setVisible] = useState(true)
-  const showEnglish = useRef(false)
 
   useEffect(() => {
     const interval = setInterval(() => {
       setVisible(false)
       setTimeout(() => {
-        showEnglish.current = !showEnglish.current
-        setWelcome(showEnglish.current ? english : chosen.current)
+        indexRef.current = (indexRef.current + 1) % welcomes.length
+        setWelcome(welcomes[indexRef.current])
         setVisible(true)
       }, FADE_MS)
     }, HOLD_MS + FADE_MS)
