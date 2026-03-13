@@ -47,6 +47,27 @@
   }
 }
 
+.lets-chat-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 2.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 2px;
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: inherit;
+  transition: background 240ms ease, border-color 240ms ease;
+}
+
+.lets-chat-cta:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.75);
+  opacity: 1;
+}
+
 @media (max-width: 768px) {
   .bio-container {
     gap: 1.25rem;

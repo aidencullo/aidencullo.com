@@ -2,7 +2,10 @@ import React, { useEffect, useRef, useState } from 'react'
 import ProfilePicture from './ProfilePicture/ProfilePicture'
 import BioText from './BioText/BioText'
 import BioLinks from './BioLinks/BioLinks'
+import ExternalLink from '@links/ExternalLink/ExternalLink'
 import './Bio.css'
+
+const CALENDLY_URL = "https://calendly.com/aidencullo/new-meeting"
 
 const welcomes = [
   { text: 'Welcome', language: 'English' },
@@ -66,6 +69,9 @@ const Bio: React.FC = () => {
       <ProfilePicture />
       <BioText />
       <BioLinks />
+      <ExternalLink href={CALENDLY_URL} title="Schedule a meeting" className="lets-chat-cta">
+        Let's chat
+      </ExternalLink>
     </div>
   )
 }
