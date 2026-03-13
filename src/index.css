@@ -1,23 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
 
 :root {
-  --primary: #0b0d0b;
-  --secondary: #0b0d0b;
-  --link-hover: #ffffff;
-  --text-primary: #ffffff;
-  --text-secondary: #ffffff;
-  --app-bg: #0b0d0b;
+  --primary: #d5d9c3;
+  --secondary: #d5d9c3;
+  --link-hover: #1a1c18;
+  --text-primary: #1a1c18;
+  --text-secondary: #1a1c18;
+  --app-bg: #d5d9c3;
   --font-body: "Inter", "Helvetica Neue", "Segoe UI", sans-serif;
   --font-display: "Inter", "Helvetica Neue", "Segoe UI", sans-serif;
 }
 
 :root[data-theme="dark"] {
-  --primary: #0b0d0b;
-  --secondary: #0b0d0b;
-  --link-hover: #ffffff;
-  --text-primary: #ffffff;
-  --text-secondary: #ffffff;
-  --app-bg: #0b0d0b;
+  --primary: #d5d9c3;
+  --secondary: #d5d9c3;
+  --link-hover: #1a1c18;
+  --text-primary: #1a1c18;
+  --text-secondary: #1a1c18;
+  --app-bg: #d5d9c3;
 }
 
 html {
