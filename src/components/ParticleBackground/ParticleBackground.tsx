@@ -48,7 +48,7 @@ const ParticleBackground: React.FC = () => {
         ax: 0,
         ay: 0,
         size: 0.8 + Math.random() * 1.6,
-        opacity: 0.18 + Math.random() * 0.45,
+        opacity: 0.1 + Math.random() * 0.25,
         trail: [],
       }
     })
@@ -88,7 +88,7 @@ const ParticleBackground: React.FC = () => {
             ctx.beginPath()
             ctx.moveTo(p.trail[i - 1].x, p.trail[i - 1].y)
             ctx.lineTo(p.trail[i].x, p.trail[i].y)
-            ctx.strokeStyle = `rgba(160, 195, 255, ${p.opacity * t * 0.7})`
+            ctx.strokeStyle = `rgba(100, 200, 190, ${p.opacity * t * 0.7})`
             ctx.lineWidth = p.size * t
             ctx.stroke()
           }
@@ -97,7 +97,7 @@ const ParticleBackground: React.FC = () => {
         // Dot
         ctx.beginPath()
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(180, 210, 255, ${p.opacity})`
+        ctx.fillStyle = `rgba(100, 200, 190, ${p.opacity})`
         ctx.fill()
       }
 
