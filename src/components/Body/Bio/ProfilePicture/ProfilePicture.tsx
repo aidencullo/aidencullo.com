@@ -1,14 +1,15 @@
 import React from 'react'
 import './ProfilePicture.css'
 
+const CALENDLY_URL = "https://calendly.com/aidencullo/new-meeting"
+
 const ProfilePicture: React.FC = () => {
   const imagePath = "/profile.jpg"
   const altText = "Aiden Cullo"
-  const flickrUrl = "https://www.flickr.com/photos/136772980@N04/"
-  
+
   return (
     <div className="profile-picture">
-      <a href={flickrUrl} target="_blank" rel="noopener noreferrer">
+      <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" title="Schedule a meeting">
         <img src={imagePath} alt={altText} />
       </a>
     </div>

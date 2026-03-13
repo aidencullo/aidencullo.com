@@ -2,10 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import ProfilePicture from './ProfilePicture/ProfilePicture'
 import BioText from './BioText/BioText'
 import BioLinks from './BioLinks/BioLinks'
-import ExternalLink from '@links/ExternalLink/ExternalLink'
 import './Bio.css'
-
-const CALENDLY_URL = "https://calendly.com/aidencullo/new-meeting"
 
 const welcomes = [
   { text: 'Welcome', language: 'English' },
@@ -41,8 +38,6 @@ const Bio: React.FC = () => {
   const [visible, setVisible] = useState(true)
   const showEnglish = useRef(false)
 
-  const translateUrl = `https://translate.google.com/?sl=auto&tl=en&text=${encodeURIComponent(welcome.text)}&op=translate`
-
   useEffect(() => {
     const interval = setInterval(() => {
       setVisible(false)
@@ -58,20 +53,12 @@ const Bio: React.FC = () => {
 
   return (
     <div className="bio-container" id="bio">
-      <a
-        className="bio-welcome"
-        href={translateUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <div className="bio-welcome">
         <span className="bio-welcome-text" style={{ opacity: visible ? 1 : 0 }}>{welcome.text}</span>
-      </a>
+      </div>
       <ProfilePicture />
       <BioText />
       <BioLinks />
-      <ExternalLink href={CALENDLY_URL} title="Schedule a meeting" className="lets-chat-cta">
-        Let's chat
-      </ExternalLink>
     </div>
   )
 }

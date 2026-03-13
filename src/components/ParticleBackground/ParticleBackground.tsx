@@ -13,9 +13,9 @@ interface Particle {
 }
 
 const COUNT = 90
-const TRAIL = 18
-const MAX_SPEED = 0.45
-const JITTER = 0.007
+const TRAIL = 22
+const MAX_SPEED = 1.1
+const JITTER = 0.018
 
 const ParticleBackground: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -39,7 +39,7 @@ const ParticleBackground: React.FC = () => {
 
     const particles: Particle[] = Array.from({ length: COUNT }, () => {
       const angle = Math.random() * Math.PI * 2
-      const speed = 0.08 + Math.random() * MAX_SPEED
+      const speed = 0.2 + Math.random() * MAX_SPEED
       return {
         x: Math.random() * w,
         y: Math.random() * h,
@@ -47,8 +47,8 @@ const ParticleBackground: React.FC = () => {
         vy: Math.sin(angle) * speed,
         ax: 0,
         ay: 0,
-        size: 0.6 + Math.random() * 1.2,
-        opacity: 0.12 + Math.random() * 0.35,
+        size: 0.8 + Math.random() * 1.6,
+        opacity: 0.18 + Math.random() * 0.45,
         trail: [],
       }
     })
@@ -88,7 +88,7 @@ const ParticleBackground: React.FC = () => {
             ctx.beginPath()
             ctx.moveTo(p.trail[i - 1].x, p.trail[i - 1].y)
             ctx.lineTo(p.trail[i].x, p.trail[i].y)
-            ctx.strokeStyle = `rgba(160, 195, 255, ${p.opacity * t * 0.55})`
+            ctx.strokeStyle = `rgba(160, 195, 255, ${p.opacity * t * 0.7})`
             ctx.lineWidth = p.size * t
             ctx.stroke()
           }
