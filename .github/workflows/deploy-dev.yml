@@ -5,6 +5,9 @@ on:
     branches:
       - dev
 
+permissions:
+  contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -21,14 +24,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
+      - name: Build with /dev/ base path
         run: npm run build
+        env:
+          VITE_BASE_PATH: /dev/
 
-      - name: Deploy to preview repo
+      - name: Deploy to gh-pages/dev/
         uses: peaceiris/actions-gh-pages@v4
         with:
-          deploy_key: ${{ secrets.PREVIEW_DEPLOY_KEY }}
-          external_repository: aidencullo/aidencullo.com-preview
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: ./dist
-          cname: dev.aidencullo.com
+          destination_dir: dev
+          keep_files: true
