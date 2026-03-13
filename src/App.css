@@ -1,6 +1,6 @@
 .app {
   color: var(--text-secondary);
-  background: linear-gradient(135deg, #0f0a04 0%, #1e1408 55%, #2a1c0c 100%);
+  background: linear-gradient(135deg, #060908 0%, #090d0c 55%, #0b100e 100%);
   position: relative;
   isolation: isolate;
   overflow: hidden;
