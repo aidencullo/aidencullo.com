@@ -1,28 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Sora:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
 
 :root {
-  --primary: #0a1628;
-  --secondary: #0b1c33;
-  --link-hover: #ffffff;
-  --text-primary: #ffffff;
-  --text-secondary: #ffffff;
-  --app-bg: linear-gradient(135deg, #08111f 0%, #0d223d 55%, #122b4b 100%);
-  --font-body: "Outfit", "Avenir Next", "Segoe UI", sans-serif;
-  --font-display: "Sora", "Avenir Next", "Segoe UI", sans-serif;
+  --primary: #b0a480;
+  --secondary: #b0a480;
+  --link-hover: #1a1c18;
+  --text-primary: #1a1c18;
+  --text-secondary: #1a1c18;
+  --app-bg: #b0a480;
+  --font-body: "Inter", "Helvetica Neue", "Segoe UI", sans-serif;
+  --font-display: "Inter", "Helvetica Neue", "Segoe UI", sans-serif;
 }
 
 :root[data-theme="dark"] {
-  --primary: #0a1628;
-  --secondary: #0b1c33;
-  --link-hover: #ffffff;
-  --text-primary: #ffffff;
-  --text-secondary: #ffffff;
-  --app-bg: linear-gradient(135deg, #08111f 0%, #0d223d 55%, #122b4b 100%);
+  --primary: #b0a480;
+  --secondary: #b0a480;
+  --link-hover: #1a1c18;
+  --text-primary: #1a1c18;
+  --text-secondary: #1a1c18;
+  --app-bg: #b0a480;
 }
 
 html {
   font-size: 19px;
   font-family: var(--font-body);
+  font-weight: 300;
+  letter-spacing: 0.01em;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }

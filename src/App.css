@@ -1,8 +1,6 @@
 .app {
   color: var(--text-secondary);
-  background-color: var(--secondary);
-  background-image: var(--app-bg);
-  background-size: 120% 120%;
+  background: #b0a480;
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -15,35 +13,8 @@
   width: 100%;
   margin: 0;
   padding: 0;
-  animation: bg-base-shift 120s linear infinite;
 }
 
-.app::before,
-.app::after {
-  content: '';
-  position: absolute;
-  inset: -30%;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.app::before {
-  background-image: radial-gradient(circle at center, rgba(118, 118, 118, 0.7) 0 0.5px, transparent 0.9px);
-  background-size: 8px 8px;
-  -webkit-mask-image: repeating-linear-gradient(45deg, transparent 0 17px, #000 17px 18px);
-  mask-image: repeating-linear-gradient(45deg, transparent 0 17px, #000 17px 18px);
-  animation: perforated-drift-a 24s linear infinite;
-  opacity: 0.96;
-}
-
-.app::after {
-  background-image: radial-gradient(circle at center, rgba(102, 102, 102, 0.66) 0 0.5px, transparent 0.9px);
-  background-size: 8px 8px;
-  -webkit-mask-image: repeating-linear-gradient(-45deg, transparent 0 17px, #000 17px 18px);
-  mask-image: repeating-linear-gradient(-45deg, transparent 0 17px, #000 17px 18px);
-  animation: perforated-drift-b 24s linear infinite;
-  opacity: 0.94;
-}
 
 .app > * {
   position: relative;
@@ -60,32 +31,7 @@
   animation-delay: 220ms;
 }
 
-@keyframes perforated-drift-a {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(72px, -72px, 0);
-  }
-}
 
-@keyframes perforated-drift-b {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(-72px, -72px, 0);
-  }
-}
-
-@keyframes bg-base-shift {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 120% 50%;
-  }
-}
 
 @keyframes app-content-fade {
   from {
@@ -101,10 +47,5 @@
   .app > * {
     animation: none;
     opacity: 1;
-  }
-
-  .app::before,
-  .app::after {
-    animation: none;
   }
 }
