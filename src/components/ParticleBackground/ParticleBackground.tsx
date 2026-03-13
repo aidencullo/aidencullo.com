@@ -1,23 +1,9 @@
 import React, { useEffect, useRef } from 'react'
 
-interface Particle {
-  x: number
-  y: number
-  vx: number
-  vy: number
-  ax: number
-  ay: number
-  size: number
-  opacity: number
-  trail: Array<{ x: number; y: number }>
-}
-
-const COUNT = 90
-const TRAIL = 22
-const MAX_SPEED = 3.5
-const JITTER = 0.018
-const MAGNETIC_STRENGTH = 80000
-const MAGNETIC_RADIUS = 500
+const SPACING = 28
+const BAR_LENGTH = 14
+const BAR_WIDTH = 1.2
+const EASE = 0.08
 
 const ParticleBackground: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -32,10 +18,18 @@ const ParticleBackground: React.FC = () => {
     let animId: number
     let w = 0
     let h = 0
+    let cols = 0
+    let rows = 0
+
+    // Each bar has a current angle that eases toward the target
+    let angles: number[] = []
 
     const resize = () => {
       w = canvas.width = window.innerWidth
       h = canvas.height = window.innerHeight
+      cols = Math.ceil(w / SPACING) + 1
+      rows = Math.ceil(h / SPACING) + 1
+      angles = new Array(cols * rows).fill(0)
     }
     resize()
     window.addEventListener('resize', resize)
@@ -49,89 +43,49 @@ const ParticleBackground: React.FC = () => {
     window.addEventListener('mousemove', onMouseMove)
     window.addEventListener('mouseleave', onMouseLeave)
 
-    const particles: Particle[] = Array.from({ length: COUNT }, () => {
-      const angle = Math.random() * Math.PI * 2
-      const speed = 0.2 + Math.random() * MAX_SPEED
-      return {
-        x: Math.random() * w,
-        y: Math.random() * h,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed,
-        ax: 0,
-        ay: 0,
-        size: 0.8 + Math.random() * 1.6,
-        opacity: 0.1 + Math.random() * 0.25,
-        trail: [],
-      }
-    })
-
     const tick = () => {
       ctx.clearRect(0, 0, w, h)
       const mouse = mouseRef.current
 
-      for (const p of particles) {
-        p.trail.push({ x: p.x, y: p.y })
-        if (p.trail.length > TRAIL) p.trail.shift()
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const x = col * SPACING + SPACING / 2
+          const y = row * SPACING + SPACING / 2
+          const idx = row * cols + col
 
-        // Jitter
-        p.ax += (Math.random() - 0.5) * JITTER
-        p.ay += (Math.random() - 0.5) * JITTER
-
-        // Magnetic field force: tangential (perpendicular to radius vector) — creates field-line swirl
-        if (mouse) {
-          const dx = p.x - mouse.x
-          const dy = p.y - mouse.y
-          const dist2 = dx * dx + dy * dy
-          const dist = Math.sqrt(dist2)
-
-          if (dist < MAGNETIC_RADIUS && dist > 1) {
-            const falloff = MAGNETIC_STRENGTH / (dist2 * dist)
-            // Perpendicular (tangential) force creates the field-line curl
-            p.ax += (-dy * falloff)
-            p.ay += (dx * falloff)
-            // Slight inward pull to keep particles near field lines
-            p.ax -= (dx / dist) * falloff * 0.15
-            p.ay -= (dy / dist) * falloff * 0.15
+          let targetAngle: number
+          if (mouse) {
+            const dx = mouse.x - x
+            const dy = mouse.y - y
+            targetAngle = Math.atan2(dy, dx)
+          } else {
+            targetAngle = 0
           }
+
+          // Ease current angle toward target (handle wrap-around)
+          let diff = targetAngle - angles[idx]
+          // Normalize diff to [-PI, PI]
+          while (diff > Math.PI) diff -= Math.PI * 2
+          while (diff < -Math.PI) diff += Math.PI * 2
+          angles[idx] += diff * EASE
+
+          const angle = angles[idx]
+          const cos = Math.cos(angle)
+          const sin = Math.sin(angle)
+          const half = BAR_LENGTH / 2
+
+          const dist = mouse ? Math.hypot(mouse.x - x, mouse.y - y) : Infinity
+          const influence = mouse ? Math.min(1, 600 / Math.max(dist, 1)) : 0
+          const opacity = 0.08 + influence * 0.35
+
+          ctx.beginPath()
+          ctx.moveTo(x - cos * half, y - sin * half)
+          ctx.lineTo(x + cos * half, y + sin * half)
+          ctx.strokeStyle = `rgba(180, 180, 180, ${opacity})`
+          ctx.lineWidth = BAR_WIDTH
+          ctx.lineCap = 'round'
+          ctx.stroke()
         }
-
-        p.vx += p.ax
-        p.vy += p.ay
-
-        const spd = Math.sqrt(p.vx * p.vx + p.vy * p.vy)
-        if (spd > MAX_SPEED) {
-          p.vx = (p.vx / spd) * MAX_SPEED
-          p.vy = (p.vy / spd) * MAX_SPEED
-        }
-        p.ax *= 0.88
-        p.ay *= 0.88
-
-        p.x += p.vx
-        p.y += p.vy
-
-        if (p.x < 0) p.x += w
-        if (p.x > w) p.x -= w
-        if (p.y < 0) p.y += h
-        if (p.y > h) p.y -= h
-
-        // Trail
-        if (p.trail.length > 1) {
-          for (let i = 1; i < p.trail.length; i++) {
-            const t = i / p.trail.length
-            ctx.beginPath()
-            ctx.moveTo(p.trail[i - 1].x, p.trail[i - 1].y)
-            ctx.lineTo(p.trail[i].x, p.trail[i].y)
-            ctx.strokeStyle = `rgba(180, 180, 180, ${p.opacity * t * 0.7})`
-            ctx.lineWidth = p.size * t
-            ctx.stroke()
-          }
-        }
-
-        // Dot
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(180, 180, 180, ${p.opacity})`
-        ctx.fill()
       }
 
       animId = requestAnimationFrame(tick)
