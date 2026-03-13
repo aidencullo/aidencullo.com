@@ -16,9 +16,12 @@ const COUNT = 90
 const TRAIL = 22
 const MAX_SPEED = 1.1
 const JITTER = 0.018
+const MAGNETIC_STRENGTH = 18000
+const MAGNETIC_RADIUS = 350
 
 const ParticleBackground: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const mouseRef = useRef<{ x: number; y: number } | null>(null)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -36,6 +39,15 @@ const ParticleBackground: React.FC = () => {
     }
     resize()
     window.addEventListener('resize', resize)
+
+    const onMouseMove = (e: MouseEvent) => {
+      mouseRef.current = { x: e.clientX, y: e.clientY }
+    }
+    const onMouseLeave = () => {
+      mouseRef.current = null
+    }
+    window.addEventListener('mousemove', onMouseMove)
+    window.addEventListener('mouseleave', onMouseLeave)
 
     const particles: Particle[] = Array.from({ length: COUNT }, () => {
       const angle = Math.random() * Math.PI * 2
@@ -55,13 +67,34 @@ const ParticleBackground: React.FC = () => {
 
     const tick = () => {
       ctx.clearRect(0, 0, w, h)
+      const mouse = mouseRef.current
 
       for (const p of particles) {
         p.trail.push({ x: p.x, y: p.y })
         if (p.trail.length > TRAIL) p.trail.shift()
 
+        // Jitter
         p.ax += (Math.random() - 0.5) * JITTER
         p.ay += (Math.random() - 0.5) * JITTER
+
+        // Magnetic field force: tangential (perpendicular to radius vector) — creates field-line swirl
+        if (mouse) {
+          const dx = p.x - mouse.x
+          const dy = p.y - mouse.y
+          const dist2 = dx * dx + dy * dy
+          const dist = Math.sqrt(dist2)
+
+          if (dist < MAGNETIC_RADIUS && dist > 1) {
+            const falloff = MAGNETIC_STRENGTH / (dist2 * dist)
+            // Perpendicular (tangential) force creates the field-line curl
+            p.ax += (-dy * falloff)
+            p.ay += (dx * falloff)
+            // Slight inward pull to keep particles near field lines
+            p.ax -= (dx / dist) * falloff * 0.15
+            p.ay -= (dy / dist) * falloff * 0.15
+          }
+        }
+
         p.vx += p.ax
         p.vy += p.ay
 
@@ -109,6 +142,8 @@ const ParticleBackground: React.FC = () => {
     return () => {
       cancelAnimationFrame(animId)
       window.removeEventListener('resize', resize)
+      window.removeEventListener('mousemove', onMouseMove)
+      window.removeEventListener('mouseleave', onMouseLeave)
     }
   }, [])
 
