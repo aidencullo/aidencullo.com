@@ -5,54 +5,24 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
+  pull-requests: write
 
 jobs:
-  promote-and-deploy:
+  create-pr:
     runs-on: ubuntu-latest
-    environment: production
     steps:
-      - name: Checkout prod
+      - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: prod
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Configure git
+      - name: Create PR from dev to prod
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Merge dev into prod
-        run: |
-          git fetch origin dev
-          git merge origin/dev --no-edit
-
-      - name: Push prod
-        run: git push origin prod
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build React app
-        run: npm run build
-
-      - name: Configure Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './dist'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          gh pr create \
+            --base prod \
+            --head dev \
+            --title "Promote dev to prod" \
+            --body "Triggered via workflow_dispatch. Merge to deploy." \
+            || echo "PR already exists"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
