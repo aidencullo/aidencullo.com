@@ -26,6 +26,8 @@
   color: inherit;
   opacity: 0;
   animation: bio-welcome-fade 900ms ease-out forwards;
+  height: 2.4rem;
+  overflow: hidden;
 }
 
 .bio-welcome-text {
@@ -57,6 +59,7 @@
 
   .bio-welcome {
     font-size: 1.3rem;
+    height: 2rem;
     letter-spacing: 0.05em;
   }
 
