@@ -28,13 +28,23 @@ const Bio: React.FC = () => {
     { text: 'Nau mai', language: 'Maori' }
   ]
 
-  const [welcome, setWelcome] = useState(welcomes[0])
-  const translateUrl = `https://translate.google.com/?sl=auto&tl=en&text=${encodeURIComponent(welcome.text)}&op=translate`
+  const [chosen, setChosen] = useState(welcomes[0])
+  const [showEnglish, setShowEnglish] = useState(false)
+  const welcome = showEnglish ? welcomes[0] : chosen
+  const translateUrl = `https://translate.google.com/?sl=auto&tl=en&text=${encodeURIComponent(chosen.text)}&op=translate`
 
   useEffect(() => {
     const next = welcomes[Math.floor(Math.random() * welcomes.length)]
-    setWelcome(next)
+    setChosen(next)
   }, [])
+
+  useEffect(() => {
+    if (chosen.language === 'English') return
+    const interval = setInterval(() => {
+      setShowEnglish(prev => !prev)
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [chosen])
 
   return (
     <div className="bio-container" id="bio">
