@@ -69,6 +69,26 @@
   }
 }
 
+.contact-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 1.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 2px;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: inherit;
+  transition: background 220ms ease, border-color 220ms ease, opacity 220ms ease;
+}
+
+.contact-cta:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.7);
+  opacity: 1;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .link-icon {
     animation: none;
