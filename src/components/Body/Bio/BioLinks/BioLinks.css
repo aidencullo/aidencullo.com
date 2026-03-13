@@ -12,7 +12,7 @@
   opacity: 1;
   transform: scale(1);
   pointer-events: auto;
-  transition: filter 300ms ease;
+  transition: filter 700ms ease;
 }
 
 .link-icon {
