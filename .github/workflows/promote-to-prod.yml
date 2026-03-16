@@ -8,21 +8,19 @@ permissions:
   pull-requests: write
 
 jobs:
-  create-pr:
+  promote:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          ref: prod
           fetch-depth: 0
 
-      - name: Create PR from dev to prod
+      - name: Fast-forward prod to dev
         run: |
-          gh pr create \
-            --base prod \
-            --head dev \
-            --title "Promote dev to prod" \
-            --body "Triggered via workflow_dispatch. Merge to deploy." \
-            || echo "PR already exists"
+          git fetch origin dev
+          git merge --ff-only origin/dev
+          git push origin prod
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
