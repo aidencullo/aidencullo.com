@@ -1,13 +1,66 @@
 import React, { useEffect, useRef } from 'react'
 
-const SPACING = 28
-const BAR_LENGTH = 14
-const BAR_WIDTH = 1.2
-const EASE = 0.08
+const NUM_DOTS = 260
+const DOT_RADIUS = 1.6
+const BASE_SPEED = 0.3
+const COLOR = 'rgba(255, 248, 235,'
+
+// Simple 2D value noise (no dependencies)
+// Permutation-based for smooth, non-repeating drift
+const perm = new Uint8Array(512)
+{
+  const p = new Uint8Array(256)
+  for (let i = 0; i < 256; i++) p[i] = i
+  for (let i = 255; i > 0; i--) {
+    const j = (Math.random() * (i + 1)) | 0
+    ;[p[i], p[j]] = [p[j], p[i]]
+  }
+  perm.set(p)
+  perm.set(p, 256)
+}
+
+function fade(t: number) {
+  return t * t * t * (t * (t * 6 - 15) + 10)
+}
+
+function lerp(a: number, b: number, t: number) {
+  return a + t * (b - a)
+}
+
+function grad(hash: number, x: number, y: number) {
+  const h = hash & 3
+  const u = h < 2 ? x : y
+  const v = h < 2 ? y : x
+  return (h & 1 ? -u : u) + (h & 2 ? -v : v)
+}
+
+function noise(x: number, y: number) {
+  const X = Math.floor(x) & 255
+  const Y = Math.floor(y) & 255
+  const xf = x - Math.floor(x)
+  const yf = y - Math.floor(y)
+  const u = fade(xf)
+  const v = fade(yf)
+  const aa = perm[perm[X] + Y]
+  const ab = perm[perm[X] + Y + 1]
+  const ba = perm[perm[X + 1] + Y]
+  const bb = perm[perm[X + 1] + Y + 1]
+  return lerp(
+    lerp(grad(aa, xf, yf), grad(ba, xf - 1, yf), u),
+    lerp(grad(ab, xf, yf - 1), grad(bb, xf - 1, yf - 1), u),
+    v
+  )
+}
+
+interface Dot {
+  x: number
+  y: number
+  baseOpacity: number
+  size: number
+}
 
 const ParticleBackground: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const mouseRef = useRef<{ x: number; y: number } | null>(null)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -18,74 +71,53 @@ const ParticleBackground: React.FC = () => {
     let animId: number
     let w = 0
     let h = 0
-    let cols = 0
-    let rows = 0
+    let dots: Dot[] = []
+    let time = Math.random() * 1000 // offset so each load feels different
 
-    // Each bar has a current angle that eases toward the target
-    let angles: number[] = []
+    const initDots = () => {
+      dots = Array.from({ length: NUM_DOTS }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        baseOpacity: 0.15 + Math.random() * 0.35,
+        size: DOT_RADIUS * (0.6 + Math.random() * 0.8),
+      }))
+    }
 
     const resize = () => {
       w = canvas.width = window.innerWidth
       h = canvas.height = window.innerHeight
-      cols = Math.ceil(w / SPACING) + 1
-      rows = Math.ceil(h / SPACING) + 1
-      angles = new Array(cols * rows).fill(0)
+      if (dots.length === 0) initDots()
     }
     resize()
     window.addEventListener('resize', resize)
 
-    const onMouseMove = (e: MouseEvent) => {
-      mouseRef.current = { x: e.clientX, y: e.clientY }
-    }
-    const onMouseLeave = () => {
-      mouseRef.current = null
-    }
-    window.addEventListener('mousemove', onMouseMove)
-    window.addEventListener('mouseleave', onMouseLeave)
-
     const tick = () => {
       ctx.clearRect(0, 0, w, h)
-      const mouse = mouseRef.current
+      time += 0.002
 
-      for (let row = 0; row < rows; row++) {
-        for (let col = 0; col < cols; col++) {
-          const x = col * SPACING + SPACING / 2
-          const y = row * SPACING + SPACING / 2
-          const idx = row * cols + col
+      for (const dot of dots) {
+        // Perlin noise drives direction — changes smoothly over time
+        const scale = 0.003
+        const angle = noise(dot.x * scale, dot.y * scale + time) * Math.PI * 2
+        const speed = BASE_SPEED + noise(dot.x * scale + 100, dot.y * scale + time + 50) * 0.2
 
-          let targetAngle: number
-          if (mouse) {
-            const dx = mouse.x - x
-            const dy = mouse.y - y
-            targetAngle = Math.atan2(dy, dx)
-          } else {
-            targetAngle = 0
-          }
+        dot.x += Math.cos(angle) * speed
+        dot.y += Math.sin(angle) * speed
 
-          // Ease current angle toward target (handle wrap-around)
-          let diff = targetAngle - angles[idx]
-          // Normalize diff to [-PI, PI]
-          while (diff > Math.PI) diff -= Math.PI * 2
-          while (diff < -Math.PI) diff += Math.PI * 2
-          angles[idx] += diff * EASE
+        // Wrap around edges
+        if (dot.x < -10) dot.x += w + 20
+        if (dot.x > w + 10) dot.x -= w + 20
+        if (dot.y < -10) dot.y += h + 20
+        if (dot.y > h + 10) dot.y -= h + 20
 
-          const angle = angles[idx]
-          const cos = Math.cos(angle)
-          const sin = Math.sin(angle)
-          const half = BAR_LENGTH / 2
+        // Opacity pulses slowly with noise
+        const opacityNoise = noise(dot.x * 0.005 + 200, dot.y * 0.005 + time * 1.5)
+        const opacity = dot.baseOpacity + opacityNoise * 0.2
 
-          const dist = mouse ? Math.hypot(mouse.x - x, mouse.y - y) : Infinity
-          const influence = mouse ? Math.min(1, 600 / Math.max(dist, 1)) : 0
-          const opacity = 0.04 + influence * 0.18
-
-          ctx.beginPath()
-          ctx.moveTo(x - cos * half, y - sin * half)
-          ctx.lineTo(x + cos * half, y + sin * half)
-          ctx.strokeStyle = `rgba(255, 248, 235, ${opacity})`
-          ctx.lineWidth = BAR_WIDTH
-          ctx.lineCap = 'round'
-          ctx.stroke()
-        }
+        ctx.beginPath()
+        ctx.arc(dot.x, dot.y, dot.size, 0, Math.PI * 2)
+        ctx.fillStyle = `${COLOR} ${Math.max(0.05, Math.min(0.6, opacity))})`
+        ctx.fill()
       }
 
       animId = requestAnimationFrame(tick)
@@ -96,8 +128,6 @@ const ParticleBackground: React.FC = () => {
     return () => {
       cancelAnimationFrame(animId)
       window.removeEventListener('resize', resize)
-      window.removeEventListener('mousemove', onMouseMove)
-      window.removeEventListener('mouseleave', onMouseLeave)
     }
   }, [])
 
