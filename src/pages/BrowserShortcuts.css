@@ -1,0 +1,92 @@
+.shortcuts-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 4rem 1.5rem;
+}
+
+.shortcuts-container {
+  max-width: 600px;
+  width: 100%;
+}
+
+.shortcuts-back {
+  font-size: 0.8rem;
+  opacity: 0.5;
+  letter-spacing: 0.05em;
+  transition: opacity 0.2s;
+  display: inline-block;
+  margin-bottom: 3rem;
+}
+
+.shortcuts-back:hover {
+  opacity: 1;
+}
+
+.shortcuts-header {
+  margin-bottom: 3rem;
+}
+
+.shortcuts-date {
+  font-size: 0.75rem;
+  opacity: 0.4;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.5rem;
+}
+
+.shortcuts-title {
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  margin: 0 0 1rem;
+  line-height: 1;
+}
+
+.shortcuts-subtitle {
+  opacity: 0.5;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.shortcuts-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.shortcuts-item {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 1.5rem;
+  padding: 1.25rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  align-items: baseline;
+}
+
+.shortcuts-item:last-child {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.shortcuts-keys {
+  font-family: 'SF Mono', 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  opacity: 0.9;
+  white-space: nowrap;
+}
+
+.shortcuts-desc {
+  font-size: 0.9rem;
+  opacity: 0.55;
+  line-height: 1.5;
+}
+
+@media (max-width: 500px) {
+  .shortcuts-item {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+}

@@ -19,13 +19,15 @@
   position: relative;
   display: inline-grid;
   place-items: center;
-  font-size: 1rem;
+  font-size: 1.6rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
   color: inherit;
   opacity: 0;
   animation: bio-welcome-fade 900ms ease-out forwards;
+  height: 2.4rem;
+  overflow: hidden;
 }
 
 .bio-welcome-text {
@@ -47,6 +49,7 @@
   }
 }
 
+
 @media (max-width: 768px) {
   .bio-container {
     gap: 1.25rem;
@@ -55,7 +58,8 @@
   }
 
   .bio-welcome {
-    font-size: 0.85rem;
+    font-size: 1.3rem;
+    height: 2rem;
     letter-spacing: 0.05em;
   }
 
