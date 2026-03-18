@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react'
 const NUM_DOTS = 260
 const DOT_RADIUS = 1.6
 const BASE_SPEED = 0.3
-const COLOR = 'rgba(255, 248, 235,'
+const COLOR = 'rgba(255, 210, 140,'
 
 // Simple 2D value noise (no dependencies)
 // Permutation-based for smooth, non-repeating drift
