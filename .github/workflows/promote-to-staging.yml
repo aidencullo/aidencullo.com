@@ -1,4 +1,4 @@
-name: Promote staging to prod
+name: Promote dev to staging
 
 on:
   workflow_dispatch:
@@ -13,13 +13,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: prod
+          ref: staging
           fetch-depth: 0
 
-      - name: Fast-forward prod to staging
+      - name: Fast-forward staging to dev
         run: |
-          git fetch origin staging
-          git merge --ff-only origin/staging
-          git push origin prod
+          git fetch origin dev
+          git merge --ff-only origin/dev
+          git push origin staging
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
