@@ -5,6 +5,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   promote:
@@ -21,5 +22,10 @@ jobs:
           git fetch origin staging
           git merge --ff-only origin/staging
           git push origin prod
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Trigger prod deploy
+        run: gh workflow run "Deploy React App to GitHub Pages" --ref prod
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
