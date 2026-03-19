@@ -1,62 +1,19 @@
 import React, { useEffect, useRef } from 'react'
 
-const NUM_DOTS = 260
-const DOT_RADIUS = 1.6
-const BASE_SPEED = 0.3
-const COLOR = 'rgba(255, 210, 140,'
-
-// Simple 2D value noise (no dependencies)
-// Permutation-based for smooth, non-repeating drift
-const perm = new Uint8Array(512)
-{
-  const p = new Uint8Array(256)
-  for (let i = 0; i < 256; i++) p[i] = i
-  for (let i = 255; i > 0; i--) {
-    const j = (Math.random() * (i + 1)) | 0
-    ;[p[i], p[j]] = [p[j], p[i]]
-  }
-  perm.set(p)
-  perm.set(p, 256)
-}
-
-function fade(t: number) {
-  return t * t * t * (t * (t * 6 - 15) + 10)
-}
-
-function lerp(a: number, b: number, t: number) {
-  return a + t * (b - a)
-}
-
-function grad(hash: number, x: number, y: number) {
-  const h = hash & 3
-  const u = h < 2 ? x : y
-  const v = h < 2 ? y : x
-  return (h & 1 ? -u : u) + (h & 2 ? -v : v)
-}
-
-function noise(x: number, y: number) {
-  const X = Math.floor(x) & 255
-  const Y = Math.floor(y) & 255
-  const xf = x - Math.floor(x)
-  const yf = y - Math.floor(y)
-  const u = fade(xf)
-  const v = fade(yf)
-  const aa = perm[perm[X] + Y]
-  const ab = perm[perm[X] + Y + 1]
-  const ba = perm[perm[X + 1] + Y]
-  const bb = perm[perm[X + 1] + Y + 1]
-  return lerp(
-    lerp(grad(aa, xf, yf), grad(ba, xf - 1, yf), u),
-    lerp(grad(ab, xf, yf - 1), grad(bb, xf - 1, yf - 1), u),
-    v
-  )
-}
+const NUM_DOTS = 120
+const DOT_RADIUS = 1.8
+const CONNECT_DIST = 140
+const BASE_SPEED = 0.4
+const DOT_COLOR = [255, 210, 140]
+const LINE_COLOR = [255, 210, 140]
 
 interface Dot {
   x: number
   y: number
-  baseOpacity: number
+  vx: number
+  vy: number
   size: number
+  baseOpacity: number
 }
 
 const ParticleBackground: React.FC = () => {
@@ -72,15 +29,20 @@ const ParticleBackground: React.FC = () => {
     let w = 0
     let h = 0
     let dots: Dot[] = []
-    let time = Math.random() * 1000 // offset so each load feels different
 
     const initDots = () => {
-      dots = Array.from({ length: NUM_DOTS }, () => ({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        baseOpacity: 0.15 + Math.random() * 0.35,
-        size: DOT_RADIUS * (0.6 + Math.random() * 0.8),
-      }))
+      dots = Array.from({ length: NUM_DOTS }, () => {
+        const angle = Math.random() * Math.PI * 2
+        const speed = BASE_SPEED * (0.5 + Math.random() * 0.5)
+        return {
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          size: DOT_RADIUS * (0.6 + Math.random() * 0.8),
+          baseOpacity: 0.2 + Math.random() * 0.4,
+        }
+      })
     }
 
     const resize = () => {
@@ -93,30 +55,40 @@ const ParticleBackground: React.FC = () => {
 
     const tick = () => {
       ctx.clearRect(0, 0, w, h)
-      time += 0.002
 
       for (const dot of dots) {
-        // Perlin noise drives direction — changes smoothly over time
-        const scale = 0.003
-        const angle = noise(dot.x * scale, dot.y * scale + time) * Math.PI * 2
-        const speed = BASE_SPEED + noise(dot.x * scale + 100, dot.y * scale + time + 50) * 0.2
+        dot.x += dot.vx
+        dot.y += dot.vy
 
-        dot.x += Math.cos(angle) * speed
-        dot.y += Math.sin(angle) * speed
+        if (dot.x < 0 || dot.x > w) dot.vx *= -1
+        if (dot.y < 0 || dot.y > h) dot.vy *= -1
+        dot.x = Math.max(0, Math.min(w, dot.x))
+        dot.y = Math.max(0, Math.min(h, dot.y))
+      }
 
-        // Wrap around edges
-        if (dot.x < -10) dot.x += w + 20
-        if (dot.x > w + 10) dot.x -= w + 20
-        if (dot.y < -10) dot.y += h + 20
-        if (dot.y > h + 10) dot.y -= h + 20
+      // Draw connections
+      for (let i = 0; i < dots.length; i++) {
+        for (let j = i + 1; j < dots.length; j++) {
+          const dx = dots[i].x - dots[j].x
+          const dy = dots[i].y - dots[j].y
+          const dist = Math.sqrt(dx * dx + dy * dy)
+          if (dist < CONNECT_DIST) {
+            const opacity = (1 - dist / CONNECT_DIST) * 0.15
+            ctx.beginPath()
+            ctx.moveTo(dots[i].x, dots[i].y)
+            ctx.lineTo(dots[j].x, dots[j].y)
+            ctx.strokeStyle = `rgba(${LINE_COLOR[0]},${LINE_COLOR[1]},${LINE_COLOR[2]},${opacity})`
+            ctx.lineWidth = 0.5
+            ctx.stroke()
+          }
+        }
+      }
 
-        // Opacity pulses slowly with noise
-        const opacityNoise = noise(dot.x * 0.005 + 200, dot.y * 0.005 + time * 1.5)
-        const opacity = dot.baseOpacity + opacityNoise * 0.2
-
+      // Draw dots
+      for (const dot of dots) {
         ctx.beginPath()
         ctx.arc(dot.x, dot.y, dot.size, 0, Math.PI * 2)
-        ctx.fillStyle = `${COLOR} ${Math.max(0.05, Math.min(0.6, opacity))})`
+        ctx.fillStyle = `rgba(${DOT_COLOR[0]},${DOT_COLOR[1]},${DOT_COLOR[2]},${dot.baseOpacity})`
         ctx.fill()
       }
 
