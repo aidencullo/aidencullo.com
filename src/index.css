@@ -6,18 +6,18 @@
   --link-hover: #ffffff;
   --text-primary: #ffffff;
   --text-secondary: #ffffff;
-  --app-bg: linear-gradient(135deg, #151210 0%, #1e1a16 55%, #28221c 100%);
+  --app-bg: linear-gradient(135deg, #2a2520 0%, #352f28 55%, #403830 100%);
   --font-body: "Inter", "Helvetica Neue", "Segoe UI", sans-serif;
   --font-display: "Inter", "Helvetica Neue", "Segoe UI", sans-serif;
 }
 
 :root[data-theme="dark"] {
-  --primary: #151210;
-  --secondary: #1e1a16;
+  --primary: #2a2520;
+  --secondary: #352f28;
   --link-hover: #ffffff;
   --text-primary: #ffffff;
   --text-secondary: #ffffff;
-  --app-bg: linear-gradient(135deg, #151210 0%, #1e1a16 55%, #28221c 100%);
+  --app-bg: linear-gradient(135deg, #2a2520 0%, #352f28 55%, #403830 100%);
 }
 
 html {
