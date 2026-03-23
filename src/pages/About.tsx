@@ -19,12 +19,6 @@ const About: React.FC = () => {
         <li>Open source contributions</li>
         <li>Technical writing</li>
       </ul>
-      <h2>Get In Touch</h2>
-      <p>
-        I'm always open to interesting conversations and opportunities.
-        Feel free to reach out via the <a href="/#/contact">contact page</a> or
-        connect with me on <a href="https://www.linkedin.com/in/aidencullo" target="_blank" rel="noopener noreferrer">LinkedIn</a>.
-      </p>
     </div>
   )
 }
