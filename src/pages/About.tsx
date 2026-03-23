@@ -16,6 +16,7 @@ const About: React.FC = () => {
       <h2>What I Do</h2>
       <ul>
         <li>Full-stack web development</li>
+        <li>DevOps</li>
         <li>Open source contributions</li>
         <li>Technical writing</li>
       </ul>
