@@ -3,14 +3,19 @@ import './App.css'
 import Body from '@body/Body'
 import VisitorFootprint from '@components/VisitorFootprint/VisitorFootprint'
 import ParticleBackground from '@components/ParticleBackground/ParticleBackground'
+import Header from '@components/Header/Header'
+import SiteFooter from '@components/SiteFooter/SiteFooter'
 import BrowserShortcuts from './pages/BrowserShortcuts'
+import About from './pages/About'
+import Contact from './pages/Contact'
 
-function Home() {
+function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="app">
       <ParticleBackground />
-      <Body />
-      <VisitorFootprint />
+      <Header />
+      {children}
+      <SiteFooter />
     </div>
   )
 }
@@ -19,12 +24,16 @@ function App() {
   return (
     <HashRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={
+          <Layout>
+            <Body />
+            <VisitorFootprint />
+          </Layout>
+        } />
+        <Route path="/about" element={<Layout><About /></Layout>} />
+        <Route path="/contact" element={<Layout><Contact /></Layout>} />
         <Route path="/posts/browser-shortcuts" element={
-          <div className="app">
-            <ParticleBackground />
-            <BrowserShortcuts />
-          </div>
+          <Layout><BrowserShortcuts /></Layout>
         } />
       </Routes>
     </HashRouter>

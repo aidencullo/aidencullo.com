@@ -1,0 +1,59 @@
+.about-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 6rem 2rem 2rem;
+  color: var(--text-primary);
+  line-height: 1.7;
+}
+
+.about-page h1 {
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  margin-bottom: 1.5rem;
+}
+
+.about-page h2 {
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  opacity: 0.8;
+}
+
+.about-page p {
+  font-size: 0.95rem;
+  font-weight: 300;
+  opacity: 0.75;
+  margin-bottom: 1rem;
+}
+
+.about-page ul {
+  list-style: none;
+  padding: 0;
+}
+
+.about-page li {
+  font-size: 0.95rem;
+  font-weight: 300;
+  opacity: 0.75;
+  padding: 0.3rem 0;
+}
+
+.about-page li::before {
+  content: "—  ";
+  opacity: 0.4;
+}
+
+.about-page a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .about-page {
+    padding: 5rem 1.25rem 2rem;
+  }
+}
