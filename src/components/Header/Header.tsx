@@ -7,12 +7,11 @@ const Header: React.FC = () => {
 
   return (
     <header className="site-header">
-      <Link to="/" className="header-logo">Aiden Cullo</Link>
+      <Link to="/" className="header-logo">aidencullo.com</Link>
       <nav className="header-nav">
         <Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>About</Link>
         <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''}>Contact</Link>
         <a href="https://aidencullo.github.io/blog/" target="_blank" rel="noopener noreferrer">Blog</a>
-        <a href="https://aidencullo.github.io/resume/resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
       </nav>
     </header>
   )
