@@ -6,7 +6,6 @@ const SiteFooter: React.FC = () => {
   return (
     <footer className="site-footer">
       <div className="footer-links">
-        <Link to="/">Home</Link>
         <Link to="/about">About</Link>
         <Link to="/contact">Contact</Link>
         <a href="https://github.com/aidencullo" target="_blank" rel="noopener noreferrer">GitHub</a>
