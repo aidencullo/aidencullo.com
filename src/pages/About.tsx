@@ -35,37 +35,6 @@ const About: React.FC = () => {
         <li>Open source contributions</li>
       </ul>
 
-      <h2>Experience</h2>
-      <p>
-        Currently a Lead Software Engineer at Tech To The Rescue, where I'm
-        building real-time video ingestion pipelines, deploying infrastructure
-        on AWS with Terraform, and constructing monitoring dashboards for water
-        supply stations.
-      </p>
-      <p>
-        Previously at JPMorgan Chase, I built dashboards for visualizing 1k+
-        LLMs and worked on ML platform security and compliance. Before that, I
-        built REST APIs, payment integrations, and progressive web apps at
-        startups including HeroGrow, Tradigro, and SuperCerebros.
-      </p>
-      <p>
-        I've also done research at SUNY Binghamton and Caltech in computational
-        physics, and interned at Sapienza University of Rome building neural
-        networks for particle physics.
-      </p>
-
-      <h2>Tech</h2>
-      <p>
-        Python, TypeScript, React, Ruby on Rails, FastAPI, Node.js, Docker,
-        Kubernetes, Terraform, AWS, PostgreSQL, Redis, and more.
-      </p>
-
-      <h2>Education</h2>
-      <p>
-        Triple major from SUNY Binghamton — BS Computer Science, BS Mathematics,
-        and BS Applied Physics.
-      </p>
-
       <h2>Languages</h2>
       <p>
         English (native), Spanish (fluent), French (proficient), Portuguese (basic),
