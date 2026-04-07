@@ -17,13 +17,11 @@ const About: React.FC = () => {
         technology to make the world a better place.
       </p>
       <p>
-        What I'm looking for is ways to leverage technology to protect vulnerable
-        populations and promote equality and justice. I'm currently exploring how
-        we can achieve this — is it through developing responsible AI and trusting
-        it? A different technology, a more transparent rendition of AI? Or can we
-        build non-AI safeguards for AI? I want to work at the intersection of
-        software, AI, and human rights to preserve and strengthen the democratic
-        institutions we have and bolster human agency and cooperation.
+        I'm looking for innovative ways to use technology to alleviate economic,
+        social, and political inequalities. I care about human rights, privacy,
+        and digital information rights, and I want to build products that
+        leverage software and AI to promote equality and justice — specifically
+        by protecting and safeguarding the information of users on the internet.
       </p>
     </div>
   )
