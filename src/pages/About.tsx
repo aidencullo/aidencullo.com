@@ -25,21 +25,6 @@ const About: React.FC = () => {
         software, AI, and human rights to preserve and strengthen the democratic
         institutions we have and bolster human agency and cooperation.
       </p>
-
-      <h2>What I Do</h2>
-      <ul>
-        <li>Full-stack web development</li>
-        <li>Cloud infrastructure &amp; DevOps</li>
-        <li>Real-time data pipelines &amp; video processing</li>
-        <li>ML platform engineering</li>
-        <li>Open source contributions</li>
-      </ul>
-
-      <h2>Languages</h2>
-      <p>
-        English (native), Spanish (fluent), French (proficient), Portuguese (basic),
-        Mandarin (basic).
-      </p>
     </div>
   )
 }
