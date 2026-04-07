@@ -11,7 +11,6 @@ const Header: React.FC = () => {
       <nav className="header-nav">
         <Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>About</Link>
         <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''}>Contact</Link>
-        <a href="https://aidencullo.github.io/blog/" target="_blank" rel="noopener noreferrer">Blog</a>
       </nav>
     </header>
   )
