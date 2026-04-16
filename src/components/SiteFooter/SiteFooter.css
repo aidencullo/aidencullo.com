@@ -37,6 +37,13 @@
   letter-spacing: 0.03em;
 }
 
+.footer-powered {
+  margin-top: 0.5rem;
+  font-size: 0.7rem;
+  opacity: 0.3;
+  letter-spacing: 0.03em;
+}
+
 @media (max-width: 768px) {
   .site-footer {
     padding: 1.5rem 1rem;

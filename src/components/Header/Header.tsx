@@ -7,7 +7,7 @@ const Header: React.FC = () => {
 
   return (
     <header className="site-header">
-      <Link to="/" className="header-logo">aidencullo.com</Link>
+      <a href="/" className="header-logo" aria-label="Go to home page">aidencullo.com</a>
       <nav className="header-nav">
         <Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>About</Link>
         <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''}>Contact</Link>
