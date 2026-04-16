@@ -11,7 +11,6 @@ const SiteFooter: React.FC = () => {
         <a href="https://github.com/aidencullo" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://www.linkedin.com/in/aidencullo" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       </div>
-      <div className="footer-copy">&copy; {new Date().getFullYear()} Aiden Cullo</div>
       <div className="footer-powered">
         Hosted on GitHub Pages.
       </div>
