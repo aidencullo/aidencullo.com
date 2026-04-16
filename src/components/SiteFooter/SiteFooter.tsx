@@ -13,7 +13,7 @@ const SiteFooter: React.FC = () => {
       </div>
       <div className="footer-copy">&copy; {new Date().getFullYear()} Aiden Cullo</div>
       <div className="footer-powered">
-        Built with React, TypeScript, and Vite. Hosted on GitHub Pages.
+        Hosted on GitHub Pages.
       </div>
     </footer>
   )
