@@ -1,7 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './ProfilePicture.css'
-
-const CALENDLY_URL = "https://calendly.com/aidencullo/new-meeting"
 
 const ProfilePicture: React.FC = () => {
   const imagePath = "/profile.jpg"
@@ -9,9 +8,9 @@ const ProfilePicture: React.FC = () => {
 
   return (
     <div className="profile-picture">
-      <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" title="Schedule a meeting">
+      <Link to="/about" title="About">
         <img src={imagePath} alt={altText} />
-      </a>
+      </Link>
     </div>
   )
 }
