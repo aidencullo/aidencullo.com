@@ -7,7 +7,7 @@ interface CalendlyLinkProps {
 }
 
 const CalendlyLink: React.FC<CalendlyLinkProps> = ({ children, className }) => {
-  const url = "https://calendly.com/aidencullo/new-meeting"
+  const url = "https://calendly.com/aidencullo/15min"
   const title = "Calendly"
 
   return (
