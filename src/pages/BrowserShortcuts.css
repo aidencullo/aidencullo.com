@@ -24,7 +24,14 @@
 }
 
 .shortcuts-header {
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
+}
+
+.shortcuts-divider {
+  height: 1px;
+  border: 0;
+  margin: 0 0 2rem;
+  background: rgba(255, 255, 255, 0.18);
 }
 
 .shortcuts-date {

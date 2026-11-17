@@ -34,6 +34,8 @@ const BrowserShortcuts: React.FC = () => {
           </p>
         </header>
 
+        <hr className="shortcuts-divider" />
+
         <ul className="shortcuts-list">
           {shortcuts.map((s) => (
             <li key={s.keys} className="shortcuts-item">
