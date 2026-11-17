@@ -14,12 +14,13 @@
 }
 
 .header-logo {
-  font-size: 1.1rem;
-  font-weight: 500;
-  letter-spacing: 0.03em;
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.4rem;
   text-decoration: none;
   color: var(--text-primary);
   opacity: 0.9;
+  transition: opacity 300ms ease;
 }
 
 .header-logo:hover {

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { FaHome } from 'react-icons/fa'
 import './Header.css'
 
 const Header: React.FC = () => {
@@ -7,7 +8,9 @@ const Header: React.FC = () => {
 
   return (
     <header className="site-header">
-      <a href="/" className="header-logo" aria-label="Go to home page">aidencullo.com</a>
+      <a href="/" className="header-logo" aria-label="Go to home page">
+        <FaHome aria-hidden="true" />
+      </a>
       <nav className="header-nav">
         <Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>About</Link>
         <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''}>Contact</Link>
