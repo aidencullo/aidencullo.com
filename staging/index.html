@@ -22,9 +22,19 @@
       const hour = new Date().getHours();
       const theme = hour >= 6 && hour < 18 ? "light" : "dark";
       document.documentElement.setAttribute("data-theme", theme);
+
+      const params = new URLSearchParams(location.search);
+
+      const fonts = ["press", "silkscreen", "vt323", "inter"];
+      const requestedFont = params.get("font");
+      document.documentElement.setAttribute("data-font", fonts.includes(requestedFont) ? requestedFont : "press");
+
+      const backgrounds = ["amber", "navy"];
+      const requestedBg = params.get("bg");
+      document.documentElement.setAttribute("data-bg", backgrounds.includes(requestedBg) ? requestedBg : "amber");
     </script>
-    <script type="module" crossorigin src="/staging/assets/index-DuBQTgVX.js"></script>
-    <link rel="stylesheet" crossorigin href="/staging/assets/index-CyFPiIkS.css">
+    <script type="module" crossorigin src="/staging/assets/index-Cdv6hRCy.js"></script>
+    <link rel="stylesheet" crossorigin href="/staging/assets/index-BBC_-0Rz.css">
   </head>
   <body>
     <div id="root"></div>
