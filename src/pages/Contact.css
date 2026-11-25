@@ -19,6 +19,12 @@
   margin-bottom: 2rem;
 }
 
+.contact-page a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  opacity: 0.9;
+}
+
 .contact-links {
   display: flex;
   flex-direction: column;
