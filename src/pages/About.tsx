@@ -6,15 +6,11 @@ const About: React.FC = () => {
     <div className="about-page">
       <h1>About Me</h1>
       <p>
-        I'm Aiden Cullo, a software engineer based in New York with 4+ years of
-        experience spanning full-stack web development, cloud infrastructure, ML
-        platforms, and real-time data pipelines. I've worked at Tradigro,
-        JPMorgan Chase, and now Tech To The Rescue — building everything from
-        progressive web apps serving 10k+ users to ML dashboards tracking 1k+
-        models. I hold three degrees from SUNY Binghamton in Computer Science,
-        Mathematics, and Applied Physics, and I've done research at Caltech and
-        Sapienza University of Rome. I care about writing clean code and using
-        technology to make the world a better place.
+        I'm Aiden Cullo, a NYC-based software engineer with 4+ years across
+        full-stack, cloud, ML, and real-time data. I've shipped products at
+        Tradigro, JPMorgan Chase, and Tech To The Rescue — from apps serving
+        10k+ users to dashboards tracking 1k+ models — with degrees from
+        Binghamton and research at Caltech and Sapienza.
       </p>
       <p>
         I'm looking for innovative ways to use technology to alleviate economic,
