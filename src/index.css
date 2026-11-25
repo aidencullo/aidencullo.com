@@ -1,22 +1,53 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Press+Start+2P&family=Silkscreen:wght@400;700&family=VT323&display=swap');
 
 :root {
-  --primary: #0a1628;
-  --secondary: #0b1c33;
-  --link-hover: #ffffff;
-  --text-primary: #ffffff;
-  --text-secondary: #ffffff;
-  --app-bg: linear-gradient(135deg, #2a2520 0%, #352f28 55%, #403830 100%);
+  --primary: #2b160b;
+  --secondary: #3a1d0d;
+  --link-hover: #ffe0b8;
+  --text-primary: #fff6ea;
+  --text-secondary: #fff6ea;
+  --app-bg:
+    radial-gradient(circle at 18% 22%, rgba(255, 150, 50, 0.16), transparent 42%),
+    linear-gradient(135deg, #2b160b 0%, #5a2d12 55%, #8c4a1c 100%);
   --font-body: "Inter", "Helvetica Neue", "Segoe UI", sans-serif;
   --font-display: "Inter", "Helvetica Neue", "Segoe UI", sans-serif;
 }
 
 :root[data-theme="dark"] {
-  --primary: #2a2520;
-  --secondary: #352f28;
-  --link-hover: #ffffff;
-  --text-primary: #ffffff;
-  --text-secondary: #ffffff;
+  --primary: #1f1008;
+  --secondary: #2c160a;
+  --app-bg:
+    radial-gradient(circle at 18% 22%, rgba(255, 140, 40, 0.12), transparent 42%),
+    linear-gradient(135deg, #1f1008 0%, #3a1d0e 55%, #6b3514 100%);
+}
+
+:root[data-font="press"] {
+  --font-body: "VT323", "Courier New", monospace;
+  --font-display: "Press Start 2P", "Courier New", monospace;
+  font-size: 21px;
+}
+
+:root[data-font="silkscreen"] {
+  --font-body: "Silkscreen", "Courier New", monospace;
+  --font-display: "Silkscreen", "Courier New", monospace;
+  font-size: 19px;
+}
+
+:root[data-font="vt323"] {
+  --font-body: "VT323", "Courier New", monospace;
+  --font-display: "VT323", "Courier New", monospace;
+  font-size: 21px;
+}
+
+:root[data-font="inter"] {
+  --font-body: "Inter", "Helvetica Neue", "Segoe UI", sans-serif;
+  --font-display: "Inter", "Helvetica Neue", "Segoe UI", sans-serif;
+}
+
+:root[data-bg="navy"],
+:root[data-bg="navy"][data-theme="dark"] {
+  --primary: #0a1628;
+  --secondary: #0b1c33;
   --app-bg: linear-gradient(135deg, #2a2520 0%, #352f28 55%, #403830 100%);
 }
 
@@ -35,6 +66,21 @@ html, body, #root {
 
 body {
   margin: 0;
+}
+
+:root[data-font="press"] .bio-welcome {
+  font-size: 0.95rem;
+  letter-spacing: 0;
+}
+
+:root[data-font="press"] .shortcuts-title {
+  font-size: clamp(1.3rem, 3.6vw, 2.2rem);
+  line-height: 1.5;
+}
+
+:root[data-font="press"] .about-page h1,
+:root[data-font="press"] .contact-page h1 {
+  font-size: 1.35rem;
 }
 
 button, a { 
