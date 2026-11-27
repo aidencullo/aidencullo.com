@@ -6,7 +6,7 @@ const About: React.FC = () => {
     <div className="about-page">
       <h1>About Me</h1>
       <p>
-        I'm Aiden Cullo, a NYC-based software engineer with 4+ years across
+        I'm Aiden, a NYC-based software engineer with 4+ years across
         full-stack, cloud, ML, and real-time data. I've shipped products at
         Tradigro, JPMorgan Chase, and Tech To The Rescue — from apps serving
         10k+ users to dashboards tracking 1k+ models — with degrees from
