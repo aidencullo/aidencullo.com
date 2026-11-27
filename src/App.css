@@ -15,8 +15,17 @@
   width: 100%;
   margin: 0;
   padding: 0;
+  transition: color 600ms ease, background-color 600ms ease;
 }
 
+.app::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 18%, rgba(255, 170, 80, 0.09), transparent 62%);
+}
 
 .app > * {
   position: relative;

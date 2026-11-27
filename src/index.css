@@ -24,7 +24,7 @@
 :root[data-font="press"] {
   --font-body: "VT323", "Courier New", monospace;
   --font-display: "Press Start 2P", "Courier New", monospace;
-  font-size: 21px;
+  font-size: 19px;
 }
 
 :root[data-font="silkscreen"] {
@@ -36,7 +36,7 @@
 :root[data-font="vt323"] {
   --font-body: "VT323", "Courier New", monospace;
   --font-display: "VT323", "Courier New", monospace;
-  font-size: 21px;
+  font-size: 19px;
 }
 
 :root[data-font="inter"] {

@@ -43,7 +43,7 @@
   padding: 0.45rem 0.9rem;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 999px;
-  transition: opacity 200ms ease, border-color 200ms ease, background 200ms ease, transform 200ms ease;
+  transition: opacity 200ms ease, border-color 200ms ease, background 200ms ease, transform 200ms ease, box-shadow 200ms ease;
 }
 
 .header-nav a:hover,
@@ -53,6 +53,7 @@
   border-color: rgba(255, 255, 255, 0.35);
   background: rgba(255, 255, 255, 0.08);
   transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(255, 150, 50, 0.1);
 }
 
 .header-nav a.active {

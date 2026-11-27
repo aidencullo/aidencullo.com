@@ -20,10 +20,17 @@
       gtag("config", "G-SX5R6GGN32");
     </script>
     <script>
-      // run before React loads
-      const hour = new Date().getHours();
-      const theme = hour >= 6 && hour < 18 ? "light" : "dark";
-      document.documentElement.setAttribute("data-theme", theme);
+      // run before React loads, and keep in sync as the day changes
+      const applyTheme = () => {
+        const hour = new Date().getHours();
+        const theme = hour >= 6 && hour < 18 ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", theme);
+      };
+      applyTheme();
+      setInterval(applyTheme, 60 * 1000);
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) applyTheme();
+      });
 
       const params = new URLSearchParams(location.search);
 

@@ -4,20 +4,17 @@ import './About.css'
 const About: React.FC = () => {
   return (
     <div className="about-page">
-      <h1>About Me</h1>
+      <h1>About Moi</h1>
       <p>
-        I'm Aiden, a NYC-based software engineer with 4+ years across
+        Moi, Aiden — NYC-based software engineer with 4+ years across
         full-stack, cloud, ML, and real-time data. I've shipped products at
-        Tradigro, JPMorgan Chase, and Tech To The Rescue — from apps serving
-        10k+ users to dashboards tracking 1k+ models — with degrees from
-        Binghamton and research at Caltech and Sapienza.
+        Tradigro, JPMorgan Chase, and Tech To The Rescue, from apps serving
+        10k+ users to dashboards tracking 1k+ models. Degrees from Binghamton;
+        research at Caltech and Sapienza University of Rome.
       </p>
       <p>
-        I'm looking for innovative ways to use technology to alleviate economic,
-        social, and political inequalities. I care about human rights, privacy,
-        and digital information rights, and I want to build products that
-        leverage software and AI to promote equality and justice — specifically
-        by protecting and safeguarding the information of users on the internet.
+        Looking for ways to use tech to reduce inequality — with privacy,
+        human rights, and digital information rights front and center.
       </p>
     </div>
   )
