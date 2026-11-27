@@ -34,9 +34,9 @@
 
       const params = new URLSearchParams(location.search);
 
-      const fonts = ["press", "silkscreen", "vt323", "inter"];
+      const fonts = ["mono", "chakra", "press", "silkscreen", "vt323", "inter"];
       const requestedFont = params.get("font");
-      document.documentElement.setAttribute("data-font", fonts.includes(requestedFont) ? requestedFont : "press");
+      document.documentElement.setAttribute("data-font", fonts.includes(requestedFont) ? requestedFont : "mono");
 
       const backgrounds = ["amber", "navy"];
       const requestedBg = params.get("bg");
