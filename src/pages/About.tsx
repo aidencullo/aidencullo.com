@@ -6,7 +6,7 @@ const About: React.FC = () => {
     <div className="about-page">
       <h1>About Moi</h1>
       <p>
-        Moi, Aiden — NYC-based software engineer with 4+ years across
+        Aiden — NYC-based software engineer with 4+ years across
         full-stack, cloud, ML, and real-time data. I've shipped products at
         Tradigro, JPMorgan Chase, and Tech To The Rescue, from apps serving
         10k+ users to dashboards tracking 1k+ models. Degrees from Binghamton;
